@@ -1,0 +1,10 @@
+# MELD's CSVs ship with CRLF line endings. Leave them byte-identical to the
+# upstream release rather than letting git normalise them -- the parser handles
+# both, but a silently rewritten dataset file is not something to introduce.
+data/meld_csv/*.csv -text
+
+# Cached embeddings and demo clips are binary.
+*.npz binary
+*.pt binary
+*.mp4 binary
+*.png binary
