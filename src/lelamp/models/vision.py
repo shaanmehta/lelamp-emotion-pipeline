@@ -1,7 +1,8 @@
-"""CLIP ViT-B/32 vision tower + a fast tensor preprocessing path.
+"""CLIP ViT-B/32 vision tower, plus a fast tensor preprocessing path.
 
-We load CLIPVisionModel, never CLIPModel: the 63.4M-parameter CLIP *text* tower
-is never instantiated and therefore never enters the parameter ledger.
+I load CLIPVisionModelWithProjection, never CLIPModel. The 63.4M-parameter CLIP
+text tower is never instantiated, so it never needs to enter the ledger.
+ledger.py asserts this rather than taking my word for it.
 """
 from __future__ import annotations
 

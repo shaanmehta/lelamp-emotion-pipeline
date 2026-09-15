@@ -1,12 +1,13 @@
 """Regression tests for the head-loading contract.
 
-Every consumer must assemble its text input from the checkpoint's `text_fields`
-list rather than assuming a particular encoding. A hardcoded `fx.text_ctx` in
-the counterfactual evaluation broke silently the moment the fused head started
-consuming two text encodings, and only surfaced as a LayerNorm shape error deep
-in a 40-line traceback. These tests make that class of bug loud and immediate.
+Every consumer has to build its text input from the checkpoint's `text_fields`
+list instead of assuming a particular encoding. A hardcoded `fx.text_ctx` in the
+counterfactual evaluation broke silently the moment the fused head started
+consuming two text encodings, and it only showed up as a LayerNorm shape error
+buried in a 40-line traceback. These tests make that kind of bug loud and
+immediate.
 
-Skipped cleanly when the heads have not been trained yet.
+Skipped cleanly if the heads haven't been trained yet.
 """
 from __future__ import annotations
 

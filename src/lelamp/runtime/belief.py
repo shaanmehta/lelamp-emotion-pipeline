@@ -1,17 +1,18 @@
-"""Emotional inertia: turn a stream of noisy per-utterance posteriors into a
-belief a physical object can act on without looking broken.
+"""Emotional inertia.
 
-Three mechanisms, all cheap, all zero learned parameters:
+Turns a stream of noisy per-utterance posteriors into a belief a physical object
+can act on without looking broken. Three mechanisms, all cheap, none of them
+learned:
 
-1. EMA on the probability simplex -- averages evidence, not decisions.
-2. Margin hysteresis -- a challenger must beat the incumbent by HYSTERESIS_MARGIN
-   in the smoothed posterior, not merely tie it.
-3. Minimum dwell -- the incumbent is immune for MIN_DWELL_MS after taking over.
+1. EMA on the probability simplex. Averages evidence, not decisions.
+2. Margin hysteresis. A challenger has to beat the incumbent by
+   HYSTERESIS_MARGIN in the smoothed posterior, not just tie it.
+3. Minimum dwell. The incumbent is immune for MIN_DWELL_MS after taking over.
 
-The thing to measure is NOT only whether this raises F1. It raises F1 on MELD
-partly because MELD emotions are sticky within a dialogue, which is a property
-of the dataset, not evidence that the lamp looks better. So we also report
-switch rate (switches/minute), which is the quantity the behaviour layer
+Whether this raises F1 is not the only thing to measure. It does raise F1 on
+MELD, partly because MELD emotions are sticky inside a dialogue, and that's a
+property of the dataset rather than evidence the lamp looks better. So I also
+report switch rate in switches per minute, which is what the behaviour layer
 actually pays for. See evaluate/smoothing.py.
 """
 from __future__ import annotations

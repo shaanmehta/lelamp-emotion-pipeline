@@ -1,7 +1,8 @@
-"""The behaviour mapping is the contract a robotics engineer builds against, so
-it gets asserted rather than eyeballed. These tests caught two real bugs: hue
-interpolating through green on the way from calm to angry, and the prior
-de-bias collapsing every arousal region into `idle`."""
+"""The behaviour mapping is the contract someone writing motion code builds
+against, so I assert it instead of eyeballing it. These tests caught two real
+bugs while I was building: hue interpolating through green on the way from calm
+to angry, and the prior de-bias flattening every arousal region into `idle`.
+"""
 from __future__ import annotations
 
 import numpy as np

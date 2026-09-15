@@ -1,17 +1,17 @@
-"""Stream MELD.Raw.tar.gz over HTTP and turn it into CLIP features in one pass.
+"""Streams MELD.Raw.tar.gz over HTTP and turns it into CLIP features in one pass.
 
-Why this exists: MELD.Raw.tar.gz is 10.9 GB and the target laptop has ~12 GB
-free, most of which the Python environment and the model weights want. Landing
-the tarball on disk is simply not an option, and neither is extracting it.
+Why this exists: the tarball is 10.9GB and the laptop I built this on had about
+12GB free, most of which the Python environment and model weights wanted.
+Putting the archive on disk wasn't an option, and neither was extracting it.
 
-So we never store it. We pull the gzip stream, walk the nested tars in memory,
-decode only the clips we actually need, encode them with the frozen CLIP vision
-tower, and discard the bytes. Peak disk cost is a few hundred MB of features;
-peak memory is a handful of decoded frames.
+So it never gets stored. I pull the gzip stream, walk the nested tars in memory,
+decode only the clips I need, run them through the frozen CLIP tower, and throw
+the bytes away. Peak disk cost is a couple hundred MB of features. Peak memory
+is a handful of decoded frames.
 
-The HTTP stream is resumable by byte offset (gzip is decoded incrementally over
-the raw byte stream, so a Range re-request splices in transparently) -- a 16-minute
-download that dies at minute 14 would otherwise be a very expensive way to
+The HTTP stream resumes by byte offset. Gzip is decoded incrementally over the
+raw byte stream, so a Range re-request splices in without the decoder noticing.
+A 20-minute download that dies at minute 18 is otherwise a very expensive way to
 learn about TCP.
 """
 from __future__ import annotations

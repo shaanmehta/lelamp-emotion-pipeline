@@ -1,13 +1,13 @@
-"""Is the vision channel load-bearing, or decoration?
+"""Is the vision channel doing anything, or is it decoration?
 
-A single hand-picked "look, it changed!" example proves nothing -- with 2,610
-test utterances you can always find one. So we measure the swap in aggregate:
-hold the transcript fixed, substitute a DIFFERENT utterance's video, and look at
-how far the posterior moves across the whole test set. Then we do the mirror
-experiment (fix the video, swap the text) to size text dominance honestly.
+One hand-picked "look, it changed!" example proves nothing. With 2,610 test
+utterances you can always find one. So I measure the swap in aggregate: hold the
+transcript fixed, substitute a different utterance's video, and look at how far
+the posterior moves across the whole test set. Then the mirror experiment (fix
+the video, swap the text) to size text dominance honestly.
 
-If the vision swap moves nothing, the correct conclusion is that our fusion is
-decoration, and we say so.
+If the vision swap moved nothing, the right conclusion would be that the fusion
+is decoration, and I'd say so.
 """
 from __future__ import annotations
 

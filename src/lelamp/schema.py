@@ -1,17 +1,16 @@
 """The contract with the behaviour layer.
 
-A robotics engineer implementing LeLamp's motion should need exactly four
-fields: `behavior.intent`, `behavior.priority`, `behavior.hold_ms`,
-`behavior.decay_ms` (plus `expressivity` as a global gain). Everything else --
-posteriors, evidence, belief internals -- is diagnostic. That separation is
-deliberate: the perception layer is allowed to change its mind about how it
-computes emotion without breaking the motion layer.
+Someone writing LeLamp's motion code should only need four fields:
+`behavior.intent`, `behavior.priority`, `behavior.hold_ms`, `behavior.decay_ms`,
+plus `expressivity` as a global gain. Everything else (posteriors, evidence,
+belief internals) is diagnostic. I split it that way so perception can change
+how it computes emotion without breaking motion.
 
-Two event types share one envelope so a consumer needs one parser:
-  * tier="reflexive"    -- emitted every REFLEX_TICK_MS from vision alone,
-                           carries valence/arousal but NO emotion category.
-  * tier="deliberative" -- emitted once at commit, carries the full posterior
-                           and (optionally) speech.
+Two event types, one envelope, so a consumer only needs one parser:
+  * tier="reflexive"    emitted every REFLEX_TICK_MS from vision alone. Carries
+                        valence and arousal but no emotion category.
+  * tier="deliberative" emitted once at commit. Full posterior, and speech if
+                        the lamp decided to say something.
 """
 from __future__ import annotations
 

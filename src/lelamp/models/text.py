@@ -1,8 +1,8 @@
 """Frozen RoBERTa-base utterance encoder.
 
-Mean-pooled over the attention mask rather than <s>: RoBERTa's CLS token is only
-meaningful after fine-tuning, and we deliberately do not fine-tune (see README,
-"What we did not do"). Mean pooling is the right read-out for a frozen encoder.
+Mean-pooled over the attention mask rather than taking <s>. RoBERTa's CLS token
+only means anything after fine-tuning, and I don't fine-tune. Mean pooling is
+the right read-out for a frozen encoder.
 """
 from __future__ import annotations
 

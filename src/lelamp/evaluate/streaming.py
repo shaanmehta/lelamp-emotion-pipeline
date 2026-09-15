@@ -1,13 +1,14 @@
-"""Partial-utterance behaviour: the accuracy-vs-coverage curve, and a learned
+"""Partial-utterance behaviour: the accuracy-vs-coverage curve and a learned
 commit-vs-wait policy.
 
-This is the plot that matters most for a robot and that almost nobody produces.
-MELD hands you whole utterances; a lamp in a kitchen gets words one at a time and
-has to decide, continuously, whether it has heard enough to react.
+MELD hands you whole utterances. A lamp in a kitchen gets words one at a time
+and has to decide, continuously, whether it has heard enough to react. This is
+the part of the problem the dataset removed, so it's the part I most wanted to
+measure.
 
 Two axes, because they answer different questions:
-  * vs. fraction heard -- how much of a sentence carries the emotion?
-  * vs. elapsed milliseconds -- what the robot's clock actually sees.
+  * against fraction heard: how much of a sentence carries the emotion?
+  * against elapsed milliseconds: what the robot's clock actually sees.
 
 IMPORTANT CAVEAT, stated here because it changes how the curve should be read:
 the fusion head is trained on WHOLE utterances and evaluated here on prefixes.

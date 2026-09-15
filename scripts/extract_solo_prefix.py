@@ -1,9 +1,9 @@
-"""Add `solo` (no-context) prefix features to the cached prefix files.
+"""Adds `solo` (no-context) prefix features to the cached prefix files.
 
-The coverage curve has to be computed with the SAME head that is reported in the
-ablation table. Once the fused head started consuming both the solo and the
-context encodings, the prefix cache needed both too. Split out as its own script
-rather than folded into extract_text.py so it can be run incrementally.
+The coverage curve has to be computed with the same head the ablation table
+reports. Once the fused head started consuming both the solo and the context
+encodings, the prefix cache needed both too. It's a separate script rather than
+folded into extract_text.py so it can be re-run on its own.
 """
 from __future__ import annotations
 

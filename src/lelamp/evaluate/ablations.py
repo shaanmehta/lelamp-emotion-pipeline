@@ -1,9 +1,9 @@
-"""Modality ablation, per-class breakdown, and the two honesty checks:
-a leak hunt and the text-ambiguous subset.
+"""Modality ablation, per-class breakdown, and two honesty checks: a leak hunt
+and the text-ambiguous subset.
 
-MELD is well known to be text-dominant. The interesting question for a robot is
-not "does fusion raise weighted-F1" (it barely will) but "where does vision buy
-anything, and is that somewhere the behaviour layer cares about".
+MELD is known to be text-dominant. The interesting question for a robot isn't
+"does fusion raise weighted F1", because it barely will. It's "where does vision
+buy anything, and is that somewhere the behaviour layer cares about".
 """
 from __future__ import annotations
 

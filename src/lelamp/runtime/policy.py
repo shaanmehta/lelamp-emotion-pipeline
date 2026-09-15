@@ -1,21 +1,21 @@
-"""Belief -> behaviour. A pure function, zero learned parameters.
+"""Belief to behaviour. A pure function with no learned parameters.
 
-Two properties this is designed to have:
+Two things I wanted it to have:
 
-1. It consumes CONFIDENCE, not argmax. Low confidence is routed to `attend` /
-   `confused_tilt` -- "I'm listening, I don't know yet" is a legitimate and
-   often correct thing for a lamp to express. Expressivity is a continuous gain
-   on confidence, so the lamp's commitment is visibly proportional to the
-   model's.
+1. It reads confidence, not argmax. Low confidence routes to `attend` or
+   `confused_tilt`, because "I'm listening, I don't know yet" is a legitimate
+   and often correct thing for a lamp to express. Expressivity is a continuous
+   gain on confidence, so how committed the lamp looks is visibly proportional
+   to how committed the model is.
 
-2. It is driven by the continuous (valence, arousal) projection rather than the
-   emotion label, so a posterior split 0.45 anger / 0.40 disgust produces a
-   coherent in-between behaviour instead of snapping to whichever won by 0.05.
+2. It's driven by the continuous (valence, arousal) projection rather than the
+   emotion label. A posterior split 0.45 anger / 0.40 disgust produces something
+   coherent in between instead of snapping to whichever won by 0.05.
 
-Valence/arousal are a DETERMINISTIC PROJECTION of the posterior onto fixed
-circumplex coordinates, de-biased by the training prior so that "posterior ==
-class prior" maps to (0, 0), i.e. no information reads as neutral rather than
-as mildly-negative. MELD has no VA labels; we do not learn these.
+Valence and arousal are a deterministic projection of the posterior onto fixed
+circumplex coordinates, de-biased by the training prior so that "posterior
+equals the class prior" lands on (0, 0). No information should read as neutral,
+not as mildly negative. MELD has no VA labels, so these are not learned.
 """
 from __future__ import annotations
 

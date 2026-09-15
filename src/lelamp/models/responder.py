@@ -2,19 +2,19 @@
 
 Two implementations behind one interface:
 
-* TemplateResponder -- ZERO learned parameters. Always available, sub-millisecond.
-  It exists because a lamp that misses its speaking window is worse than a lamp
+* TemplateResponder. Zero learned parameters, always available, sub-millisecond.
+  It's there because a lamp that misses its speaking window is worse than a lamp
   that says something simple on time, and because it gives the latency budget a
-  real fallback rather than a hypothetical one.
+  real fallback instead of a hypothetical one.
 
-* LLMResponder -- Qwen2.5-1.5B-Instruct, 4-bit, via MLX. Streams tokens.
+* LLMResponder. Qwen2.5-1.5B-Instruct, 4-bit, through MLX. Streams tokens.
 
-The LLM never sees pixels. It is grounded in the multimodal input THROUGH the
-structured state -- the emotion posterior, valence/arousal, the dominant modality
-and the visual cue all go into the prompt. Whether that channel is actually live
-(rather than decorative) is not something we assert; it is measured, by swapping
-the visual stream under a fixed transcript across the whole test set. See
-evaluate/counterfactual.py.
+The LLM never sees pixels. It's grounded in the multimodal input through the
+structured state: the emotion posterior, valence and arousal, the dominant
+modality, and the visual cue all go into the prompt. Whether that channel is
+actually live rather than decorative isn't something I assert. It's measured, by
+swapping the visual stream under a fixed transcript across the whole test set.
+See evaluate/counterfactual.py.
 """
 from __future__ import annotations
 

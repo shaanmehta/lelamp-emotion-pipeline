@@ -1,22 +1,22 @@
-"""Turning a pre-segmented MELD clip back into something that arrives over time.
+"""Turns a pre-segmented MELD clip back into something that arrives over time.
 
-MELD clips are pre-segmented; real speech is not. We cannot invent the part of
-the problem MELD removed, but we can stop pretending the whole utterance is
+MELD clips are pre-segmented. Real speech isn't. I can't invent back the part of
+the problem MELD removed, but I can stop pretending the whole utterance is
 available at t=0. A ReplayStream emits frames at their true decode timestamps
 and words at a constant rate derived from the clip's own duration, so the
 pipeline sees partial evidence and has to decide when to commit.
 
-Honest limits of this simulation, stated here and in the README:
+Limits of this simulation, same as in the README:
   * Word timings are interpolated, not forced-aligned. MELD ships no word-level
-    alignment, and the Text+Vision track has no audio to align against.
-  * There is no VAD and therefore no real endpointing. The end of the clip is
-    given to us. What we DO model is the commit-vs-wait decision, which is the
-    half of the problem that determines how the robot behaves.
+    alignment, and there's no audio in this track to align against.
+  * There's no VAD and therefore no real endpointing. The end of the clip is
+    handed to me. What I do model is the commit-vs-wait decision, which is the
+    half of the problem that decides how the robot behaves.
 
-The interface is deliberately thin (three event types) so a camera/microphone
-source could be dropped in without touching the pipeline. We did not ship one:
-the target machine has no webcam available for this work, and an untested
-capture path in a repo a reviewer runs once is a liability, not a feature.
+The interface is three event types wide on purpose, so a camera and mic source
+drops in without touching the pipeline. I didn't ship one. There was no webcam
+available for this, and an untested capture path in a repo someone runs once is
+a liability rather than a feature.
 """
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Regenerates every number and every figure in the README. One command.
+"""Regenerates every number and figure in the README. One command.
 
     python -m lelamp.evaluate.run_all
 

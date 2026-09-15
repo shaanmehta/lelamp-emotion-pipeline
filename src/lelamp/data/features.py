@@ -1,10 +1,10 @@
 """Joins the cached text and vision features into aligned arrays.
 
-Text features exist for every MELD utterance; vision features exist only where
-the clip decoded successfully. We keep an explicit `has_vision` mask instead of
-silently dropping rows, because "how many clips failed to decode" is a number
-the README has to report, and because every ablation must run on the SAME rows
-or the comparison is meaningless.
+Text features exist for every MELD utterance. Vision features only exist where
+the clip actually decoded. I keep an explicit `has_vision` mask instead of
+quietly dropping rows, for two reasons: how many clips failed to decode is a
+number the README should report, and every ablation has to run on the same rows
+or the comparison means nothing.
 """
 from __future__ import annotations
 

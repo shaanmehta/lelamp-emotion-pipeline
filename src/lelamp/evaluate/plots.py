@@ -1,4 +1,4 @@
-"""Every figure in the README, regenerated from the results JSON."""
+"""Every figure in the README, regenerated from artifacts/results.json."""
 from __future__ import annotations
 
 import warnings

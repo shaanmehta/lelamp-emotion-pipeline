@@ -1,14 +1,13 @@
 """Emotional inertia, measured two ways.
 
-F1 is the wrong single metric here. Temporal smoothing raises F1 on MELD partly
-because MELD emotions are sticky within a dialogue -- that is a property of the
-dataset, not evidence that the lamp looks less broken. So we report both:
+F1 on its own is the wrong metric here. Smoothing raises F1 on MELD partly
+because MELD emotions are sticky inside a dialogue, and that's a property of the
+dataset rather than evidence the lamp looks less broken. So I report both:
 
-  * weighted-F1, raw vs smoothed  (did we lose accuracy?)
-  * SWITCH RATE, switches per minute of speech  (did the lamp stop flickering?)
+  * weighted F1, raw vs smoothed. Did I lose accuracy?
+  * switch rate, switches per minute of speech. Did the lamp stop flickering?
 
-The second number is the one the behaviour layer pays for, and essentially
-nobody reports it.
+The second number is the one the behaviour layer actually pays for.
 """
 from __future__ import annotations
 

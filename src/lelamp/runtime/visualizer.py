@@ -1,10 +1,11 @@
-"""A throwaway terminal lamp, so the reviewer SEES the state change.
+"""A throwaway terminal lamp, so you can see the state change instead of reading
+JSON.
 
-Deliberately not pretty-printed JSON: the point of the structured output is that
-a body consumes it, and the fastest way to show that the contract is sufficient
-is to drive something that looks like a body from those fields alone. This
-renderer reads ONLY `behavior` (+ affect for the readouts) -- if the schema were
-missing something a robot needs, this file would not be able to draw.
+The point of the structured output is that a body consumes it. The fastest way
+to show the contract is sufficient is to drive something that looks like a body
+using nothing but those fields. This renderer reads only `behavior`, plus affect
+for the numeric readouts. If the schema were missing something a robot needs,
+this file wouldn't be able to draw.
 """
 from __future__ import annotations
 

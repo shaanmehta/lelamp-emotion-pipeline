@@ -1,5 +1,5 @@
-"""Cache frozen RoBERTa features for every utterance, plus prefix features on
-the test split for the accuracy-vs-coverage curve."""
+"""Caches frozen RoBERTa features for every utterance, plus prefix features on
+dev and test for the accuracy-vs-coverage curve."""
 from __future__ import annotations
 
 import sys

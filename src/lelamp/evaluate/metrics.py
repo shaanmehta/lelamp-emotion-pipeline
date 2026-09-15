@@ -1,4 +1,4 @@
-"""Shared evaluation helpers. Every number in the README comes through here."""
+"""Shared evaluation helpers. Every number in the README goes through here."""
 from __future__ import annotations
 
 import numpy as np

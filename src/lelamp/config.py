@@ -1,7 +1,7 @@
-"""Single source of truth for paths, model ids and tunable constants.
+"""Single source of truth for paths, model ids, and tunable constants.
 
-Everything the README quotes as a number should be reachable from here, so the
-write-up and the code cannot drift apart.
+Anything the README quotes as a number should be reachable from here, so the
+write-up and the code can't drift apart.
 """
 from __future__ import annotations
 

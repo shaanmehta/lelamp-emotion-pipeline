@@ -2,19 +2,19 @@
 
     python scripts/demo.py                      # replay test dialogue 237
     python scripts/demo.py --speed 2            # 2x wall clock
-    python scripts/demo.py --counterfactual     # grounding proof, same words
+    python scripts/demo.py --counterfactual     # same words, different video
 
-What you are watching:
-  * frames arrive at their true timestamps; each one is encoded by CLIP AT THAT
-    MOMENT and drives the reflexive tier -- the lamp moves before the sentence
+What you're watching:
+  * Frames arrive at their true timestamps. Each one is encoded by CLIP at that
+    moment and drives the reflexive tier, so the lamp moves before the sentence
     is over.
-  * words arrive at a constant rate; once coverage passes --min-coverage the
-    pipeline probes "have I heard enough?" and commits as soon as calibrated
-    confidence clears --commit-conf, otherwise at the end of the utterance.
-  * the COMMIT_STATE event is emitted BEFORE the responder runs, so the body
-    never waits on the language model.
+  * Words arrive at a constant rate. Once coverage passes --min-coverage the
+    pipeline asks "have I heard enough?" and commits as soon as calibrated
+    confidence clears --commit-conf, or at the end of the utterance otherwise.
+  * COMMIT_STATE is emitted before the responder runs, so the body never waits
+    on the language model.
 
-Every event is appended to artifacts/runs/<timestamp>.jsonl.
+Every event gets appended to artifacts/runs/<timestamp>.jsonl.
 """
 from __future__ import annotations
 

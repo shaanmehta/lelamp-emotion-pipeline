@@ -1,22 +1,21 @@
 """The two-tier orchestrator.
 
-TIER 1 (reflexive, budget 300 ms p95): every REFLEX_TICK_MS, the newest CLIP
-frame goes through FastAffectHead -> valence/arousal/salience -> behaviour. This
-runs while the person is still talking, which is the entire reason the vision
-modality is worth its compute on a robot: it is the only signal available before
-the utterance ends.
+Tier 1, reflexive, budget 300ms p95. Every REFLEX_TICK_MS the newest CLIP frame
+goes through FastAffectHead to valence/arousal/salience and then to behaviour.
+This runs while the person is still talking, which is the whole reason vision is
+worth its compute on a robot: it's the only signal available before the
+utterance ends.
 
-TIER 2 (deliberative, budget 800 ms p95 to first token): at commit, pooled
-frames + context-aware text embedding go through the fusion head, then
-calibration, then belief smoothing, then the behaviour policy. The COMMIT_STATE
-event is emitted BEFORE the responder is invoked, so the lamp's body never waits
-on the language model.
+Tier 2, deliberative, budget 800ms p95 to first token. At commit, pooled frames
+and the text embeddings go through the fusion head, then calibration, then
+belief smoothing, then the behaviour policy. COMMIT_STATE is emitted before the
+responder runs, so the body never waits on the language model.
 
-Three heads are loaded, not one: fused, text-only and vision-only. The two
-single-modality heads are not decoration -- their disagreement is what
-distinguishes "I am unsure because the evidence is weak" (attend) from "I am
-unsure because my two senses contradict each other" (confused_tilt). They cost
-1.5M parameters combined and they are in the ledger.
+Three heads get loaded, not one: fused, text-only, vision-only. The two
+single-modality heads aren't decoration. Their disagreement is what separates
+"I'm unsure because the evidence is weak" (attend) from "I'm unsure because my
+two senses contradict each other" (confused_tilt). They cost about 1.9M
+parameters between them and they're in the ledger.
 """
 from __future__ import annotations
 

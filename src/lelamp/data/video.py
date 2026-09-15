@@ -1,4 +1,6 @@
-"""In-memory mp4 -> CLIP-ready frames. No temp files, no ffmpeg binary."""
+"""In-memory mp4 to CLIP-ready frames. No temp files, no ffmpeg binary needed —
+PyAV bundles its own.
+"""
 from __future__ import annotations
 
 import io

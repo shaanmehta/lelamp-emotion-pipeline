@@ -1,6 +1,6 @@
-"""MELD CSV loading, dialogue context assembly and split bookkeeping.
+"""MELD CSV loading, dialogue context assembly, split bookkeeping.
 
-The only place that knows about MELD's on-disk naming conventions.
+The only file that knows about MELD's on-disk naming conventions.
 """
 from __future__ import annotations
 

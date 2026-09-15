@@ -1,17 +1,17 @@
-"""Parameter ledger, COUNTED not quoted.
+"""Parameter ledger. Counted, not quoted.
 
-Every number here comes from summing `.numel()` over modules that are actually
-instantiated. Nothing is typed in by hand, so the README cannot drift from the
-code, and a reviewer can re-derive the total with one command.
+Every number here comes from summing `.numel()` over modules that actually get
+instantiated. Nothing is typed in by hand, so the README can't drift from the
+code and anyone can re-derive the total with one command.
 
-Two things this deliberately does not let us hide:
+Two things I made sure this doesn't let me hide:
 
-  * CLIP's text tower. We assert it is absent rather than claiming it. If
+  * CLIP's text tower. The code asserts it's absent rather than claiming it. If
     someone swaps CLIPVisionModelWithProjection for CLIPModel to "simplify", the
-    assertion fails and the ledger stops being a lie.
-  * ASR / VAD / TTS. MELD hands us gold transcripts, so none of these are in our
-    inference path -- which is a real advantage this task grants us and NOT a
-    property of a deployed lamp. The second table prices them in.
+    assertion fires and the ledger stops being wrong quietly.
+  * ASR, VAD, TTS. MELD hands me gold transcripts, so none of them are in my
+    inference path. That's an advantage the task gives me, not a property of a
+    real lamp. The second table prices them in.
 """
 from __future__ import annotations
 

@@ -1,10 +1,9 @@
-"""The only learned components we train ourselves: two small MLP heads on top of
-frozen encoders.
+"""The only parts I train: small MLP heads on top of frozen encoders.
 
-Deliberate choice: we do NOT fine-tune RoBERTa or CLIP. Fine-tuning a large
-backbone to claim a fine-tune is the anti-pattern here, and frozen features mean
-every ablation retrains in seconds on CPU -- which is what makes the honest
-modality comparison affordable at all.
+I deliberately don't fine-tune RoBERTa or CLIP. Fine-tuning a big backbone just
+to say I fine-tuned something is the anti-pattern here, and frozen features mean
+every ablation retrains in seconds on CPU. That's what made an honest modality
+comparison affordable in the first place.
 """
 from __future__ import annotations
 

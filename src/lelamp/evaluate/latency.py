@@ -1,12 +1,12 @@
-"""Measured latency, on this machine, with the real models in the loop.
+"""Measured latency on this machine, with the real models in the loop.
 
-Not estimated, not extrapolated from FLOPs. Every number here is a wall-clock
+Not estimated, not extrapolated from FLOPs. Every number is a wall-clock
 percentile over repeated runs of the actual code path, including the mp4 decode,
-because on a robot the decode is not free either.
+because decode isn't free on a robot either.
 
-Budgets being checked (justified in the README):
-  * reflexive tier   <= 300 ms p95 from frame arrival to emitted behaviour
-  * deliberative     <= 800 ms p95 from utterance end to first spoken token
+The budgets being checked, justified in the README:
+  * reflexive tier: 300ms p95 or under, from frame arrival to emitted behaviour
+  * deliberative: 800ms p95 or under, from utterance end to first spoken token
 """
 from __future__ import annotations
 

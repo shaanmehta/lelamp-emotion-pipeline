@@ -1,11 +1,12 @@
-"""Train the two small heads on frozen features.
+"""Trains the small heads on frozen features.
 
-Every modality configuration is trained by the same code on the same rows with
-the same schedule. That is the whole point: if text-only and fused differ, the
-difference is the modality, not an incidental change in how they were trained.
+Every modality configuration goes through the same code, on the same rows, with
+the same schedule. That's the point: if text-only and fused differ, the
+difference is the modality and not some incidental change in how they were
+trained.
 
-Runs on CPU in well under a minute per config -- which is what makes it
-affordable to be honest about ablations rather than reporting the one that won.
+Runs on CPU in well under a minute per config, which is what made it affordable
+to report all the ablations instead of just the one that won.
 """
 from __future__ import annotations
 
