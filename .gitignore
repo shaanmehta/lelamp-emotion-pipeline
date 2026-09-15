@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Fetched on first use (1.5 MB, see src/lelamp/data/meld.py)
+data/meld_csv/*.csv
+
+# Demo event logs
+artifacts/runs/*.jsonl
+
+# TRAIN-split features: ~99 MB, and `make eval` does not need them -- every
+# reported number reproduces from the dev/test caches alone (the train class
+# prior the majority baseline needs is stored inside each head checkpoint).
+# Regenerate with `make features` if you want to re-run `make train`.
+artifacts/features/clip_train.npz
+artifacts/features/text_train.npz

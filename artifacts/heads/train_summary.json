@@ -1,0 +1,97 @@
+{
+  "text_solo": {
+    "config": "text_solo",
+    "dev_weighted_f1": 0.5893177540308105,
+    "temperature": 1.1639831066131592,
+    "epochs_run": 17,
+    "train_seconds": 3.1,
+    "head_params": 398856,
+    "modality_dropout": {
+      "vision": 0.0,
+      "text": 0.0
+    }
+  },
+  "text_ctx": {
+    "config": "text_ctx",
+    "dev_weighted_f1": 0.4689054530349391,
+    "temperature": 1.246620774269104,
+    "epochs_run": 20,
+    "train_seconds": 3.6,
+    "head_params": 398856,
+    "modality_dropout": {
+      "vision": 0.0,
+      "text": 0.0
+    }
+  },
+  "text_pair": {
+    "config": "text_pair",
+    "dev_weighted_f1": 0.6003369227949634,
+    "temperature": 0.9516083598136902,
+    "epochs_run": 11,
+    "train_seconds": 3.3,
+    "head_params": 793608,
+    "modality_dropout": {
+      "vision": 0.0,
+      "text": 0.0
+    }
+  },
+  "vision": {
+    "config": "vision",
+    "dev_weighted_f1": 0.35016924732955385,
+    "temperature": 2.663229465484619,
+    "epochs_run": 23,
+    "train_seconds": 9.0,
+    "head_params": 1056776,
+    "modality_dropout": {
+      "vision": 0.0,
+      "text": 0.0
+    }
+  },
+  "fused_ctx_only": {
+    "config": "fused_ctx_only",
+    "dev_weighted_f1": 0.44394262939294615,
+    "temperature": 1.0762708187103271,
+    "epochs_run": 15,
+    "train_seconds": 7.9,
+    "head_params": 1451528,
+    "modality_dropout": {
+      "vision": 0.25,
+      "text": 0.1
+    }
+  },
+  "fused_concat": {
+    "config": "fused_concat",
+    "dev_weighted_f1": 0.5750989425156394,
+    "temperature": 1.131147861480713,
+    "epochs_run": 15,
+    "train_seconds": 9.9,
+    "head_params": 1846280,
+    "modality_dropout": {
+      "vision": 0.25,
+      "text": 0.1
+    }
+  },
+  "fused": {
+    "config": "fused",
+    "dev_weighted_f1": 0.5989164138124036,
+    "temperature": 1.297703742980957,
+    "epochs_run": 16,
+    "train_seconds": 11.7,
+    "head_params": 1560720,
+    "modality_dropout": {
+      "vision": 0.25,
+      "text": 0.1
+    },
+    "mean_gate_dev": 0.6145
+  },
+  "fast_affect": {
+    "config": "fast_affect",
+    "dev_loss": 0.7487,
+    "dev_r_valence": 0.2201,
+    "dev_r_arousal": 0.1814,
+    "dev_salience_auc": 0.5629,
+    "head_params": 133123,
+    "train_seconds": 17.2,
+    "n_train_frames": 79226
+  }
+}

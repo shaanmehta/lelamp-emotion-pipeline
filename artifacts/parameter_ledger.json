@@ -1,0 +1,88 @@
+{
+  "rows": [
+    {
+      "component": "openai/clip-vit-base-patch32",
+      "role": "vision tower (frames -> 512d)",
+      "params": 87849216
+    },
+    {
+      "component": "roberta-base",
+      "role": "utterance+context encoder",
+      "params": 124645632
+    },
+    {
+      "component": "FastAffectHead",
+      "role": "tier-1 reflexive v/a/salience",
+      "params": 133123
+    },
+    {
+      "component": "GatedFusionHead[fused]",
+      "role": "tier-2 emotion posterior (+1 temperature)",
+      "params": 1560720
+    },
+    {
+      "component": "FusionHead[text_pair]",
+      "role": "evidence: text-only margin",
+      "params": 793608
+    },
+    {
+      "component": "FusionHead[vision]",
+      "role": "evidence: vision-only margin / disagreement",
+      "params": 1056776
+    },
+    {
+      "component": "BeliefTracker",
+      "role": "EMA + hysteresis + dwell",
+      "params": 0
+    },
+    {
+      "component": "BehaviorPolicy",
+      "role": "state -> intent/light/motion",
+      "params": 0
+    },
+    {
+      "component": "TemplateResponder",
+      "role": "zero-parameter fallback speech",
+      "params": 0
+    },
+    {
+      "component": "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+      "role": "response generation (loaded and counted)",
+      "params": 1591950848
+    }
+  ],
+  "total_params": 1807989923,
+  "budget": 6000000000,
+  "headroom": 4192010077,
+  "headroom_pct": 69.9,
+  "within_budget": true,
+  "deployed_lamp_projection": {
+    "note": "What the ledger would look like on a real LeLamp that has to hear and speak. Published totals, NOT measured here.",
+    "extras": [
+      {
+        "component": "openai/whisper-small",
+        "role": "streaming ASR",
+        "params": 244000000
+      },
+      {
+        "component": "silero-vad v4",
+        "role": "voice activity / endpointing",
+        "params": 1100000
+      },
+      {
+        "component": "piper en_US-lessac-medium",
+        "role": "TTS",
+        "params": 20000000
+      },
+      {
+        "component": "SCRFD-500m",
+        "role": "face detect + active speaker gating",
+        "params": 600000
+      }
+    ],
+    "total_params": 2073689923,
+    "headroom": 3926310077,
+    "headroom_pct": 65.4,
+    "within_budget": true
+  }
+}

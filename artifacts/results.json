@@ -1,0 +1,1922 @@
+{
+  "generated_at": "2026-09-15 15:23:22",
+  "splits": {
+    "train": {
+      "n": 9989,
+      "vision_coverage": 0.9999
+    },
+    "dev": {
+      "n": 1109,
+      "vision_coverage": 0.9991
+    },
+    "test": {
+      "n": 2610,
+      "vision_coverage": 1.0
+    }
+  },
+  "ablations": {
+    "n_test": 2610,
+    "test_class_counts": {
+      "neutral": 1256,
+      "joy": 402,
+      "sadness": 208,
+      "anger": 345,
+      "surprise": 281,
+      "fear": 50,
+      "disgust": 68
+    },
+    "majority": {
+      "weighted_f1": 0.3127,
+      "macro_f1": 0.0928,
+      "accuracy": 0.4812,
+      "predicts": "neutral",
+      "test_base_rate": 0.4812
+    },
+    "configs": {
+      "text_solo": {
+        "weighted_f1": 0.6225,
+        "macro_f1": 0.4456,
+        "accuracy": 0.6467,
+        "per_class_f1": {
+          "neutral": 0.7926,
+          "joy": 0.5671,
+          "sadness": 0.2877,
+          "anger": 0.4312,
+          "surprise": 0.5903,
+          "fear": 0.2162,
+          "disgust": 0.2342
+        },
+        "ece": 0.0377,
+        "temperature": 1.164,
+        "head_params": 398857
+      },
+      "text_ctx": {
+        "weighted_f1": 0.4985,
+        "macro_f1": 0.2962,
+        "accuracy": 0.533,
+        "per_class_f1": {
+          "neutral": 0.6973,
+          "joy": 0.387,
+          "sadness": 0.1754,
+          "anger": 0.3784,
+          "surprise": 0.3484,
+          "fear": 0.0656,
+          "disgust": 0.0213
+        },
+        "ece": 0.0285,
+        "temperature": 1.2466,
+        "head_params": 398857
+      },
+      "text_pair": {
+        "weighted_f1": 0.6286,
+        "macro_f1": 0.4328,
+        "accuracy": 0.6452,
+        "per_class_f1": {
+          "neutral": 0.783,
+          "joy": 0.5817,
+          "sadness": 0.3264,
+          "anger": 0.517,
+          "surprise": 0.5803,
+          "fear": 0.1351,
+          "disgust": 0.1064
+        },
+        "ece": 0.0264,
+        "temperature": 0.9516,
+        "head_params": 793609
+      },
+      "vision": {
+        "weighted_f1": 0.349,
+        "macro_f1": 0.1673,
+        "accuracy": 0.3778,
+        "per_class_f1": {
+          "neutral": 0.5684,
+          "joy": 0.2168,
+          "sadness": 0.0627,
+          "anger": 0.2052,
+          "surprise": 0.0871,
+          "fear": 0.0308,
+          "disgust": 0.0
+        },
+        "ece": 0.0694,
+        "temperature": 2.6632,
+        "head_params": 1056777
+      },
+      "fused_ctx_only": {
+        "weighted_f1": 0.4815,
+        "macro_f1": 0.284,
+        "accuracy": 0.5161,
+        "per_class_f1": {
+          "neutral": 0.6765,
+          "joy": 0.3911,
+          "sadness": 0.2462,
+          "anger": 0.374,
+          "surprise": 0.2337,
+          "fear": 0.0377,
+          "disgust": 0.029
+        },
+        "ece": 0.0278,
+        "temperature": 1.0763,
+        "head_params": 1451529
+      },
+      "fused_concat": {
+        "weighted_f1": 0.6039,
+        "macro_f1": 0.4093,
+        "accuracy": 0.6142,
+        "per_class_f1": {
+          "neutral": 0.759,
+          "joy": 0.5686,
+          "sadness": 0.3563,
+          "anger": 0.4759,
+          "surprise": 0.5188,
+          "fear": 0.1311,
+          "disgust": 0.0556
+        },
+        "ece": 0.0363,
+        "temperature": 1.1311,
+        "head_params": 1846281
+      },
+      "fused": {
+        "weighted_f1": 0.6175,
+        "macro_f1": 0.4381,
+        "accuracy": 0.631,
+        "per_class_f1": {
+          "neutral": 0.7759,
+          "joy": 0.5835,
+          "sadness": 0.3237,
+          "anger": 0.4495,
+          "surprise": 0.5633,
+          "fear": 0.1842,
+          "disgust": 0.1864
+        },
+        "ece": 0.0278,
+        "temperature": 1.2977,
+        "head_params": 1560721
+      }
+    },
+    "best_text_only_config": "text_pair",
+    "text_ambiguous_subset": {
+      "definition": "bottom-30% top-2 margin of the best text-only config (text_pair)",
+      "n": 783,
+      "text_only": {
+        "weighted_f1": 0.4047,
+        "macro_f1": 0.3124,
+        "accuracy": 0.4138
+      },
+      "fused": {
+        "weighted_f1": 0.375,
+        "macro_f1": 0.3163,
+        "accuracy": 0.3844
+      }
+    },
+    "per_class_delta_fused_minus_text": {
+      "neutral": -0.0071,
+      "joy": 0.0018,
+      "sadness": -0.0027,
+      "anger": -0.0675,
+      "surprise": -0.017,
+      "fear": 0.0491,
+      "disgust": 0.08
+    },
+    "confusion_fused": [
+      [
+        1018,
+        91,
+        37,
+        27,
+        64,
+        8,
+        11
+      ],
+      [
+        100,
+        248,
+        8,
+        15,
+        28,
+        2,
+        1
+      ],
+      [
+        88,
+        17,
+        56,
+        24,
+        14,
+        3,
+        6
+      ],
+      [
+        79,
+        52,
+        19,
+        129,
+        46,
+        3,
+        17
+      ],
+      [
+        40,
+        33,
+        10,
+        15,
+        178,
+        3,
+        2
+      ],
+      [
+        17,
+        3,
+        5,
+        3,
+        13,
+        7,
+        2
+      ],
+      [
+        26,
+        4,
+        3,
+        16,
+        8,
+        0,
+        11
+      ]
+    ],
+    "confusion_text_only": [
+      [
+        1050,
+        77,
+        41,
+        43,
+        34,
+        5,
+        6
+      ],
+      [
+        100,
+        235,
+        8,
+        29,
+        27,
+        2,
+        1
+      ],
+      [
+        84,
+        16,
+        55,
+        35,
+        9,
+        8,
+        1
+      ],
+      [
+        87,
+        36,
+        9,
+        175,
+        26,
+        2,
+        10
+      ],
+      [
+        51,
+        32,
+        7,
+        27,
+        159,
+        2,
+        3
+      ],
+      [
+        20,
+        4,
+        8,
+        6,
+        7,
+        5,
+        0
+      ],
+      [
+        34,
+        6,
+        1,
+        17,
+        5,
+        0,
+        5
+      ]
+    ],
+    "behaviour_critical_pairs": {
+      "neutral_vs_anger": {
+        "text_only": 0.7651,
+        "fused": 0.7164,
+        "delta": -0.0487
+      },
+      "neutral_vs_surprise": {
+        "text_only": 0.7866,
+        "fused": 0.7781,
+        "delta": -0.0085
+      },
+      "neutral_vs_joy": {
+        "text_only": 0.775,
+        "fused": 0.7636,
+        "delta": -0.0114
+      },
+      "neutral_vs_sadness": {
+        "text_only": 0.7548,
+        "fused": 0.7336,
+        "delta": -0.0212
+      }
+    },
+    "leak_check": {
+      "note": "MELD's six principal cast are present in every split, so a vision head can be rewarded for recognising an actor rather than an expression. A large main-cast/other gap on the vision-only config is the tell.",
+      "main_cast_frac": 0.8261,
+      "text_solo": {
+        "main_cast": {
+          "weighted_f1": 0.6105,
+          "macro_f1": 0.4476,
+          "accuracy": 0.6368
+        },
+        "other": {
+          "weighted_f1": 0.6811,
+          "macro_f1": 0.4015,
+          "accuracy": 0.6938
+        }
+      },
+      "text_ctx": {
+        "main_cast": {
+          "weighted_f1": 0.485,
+          "macro_f1": 0.2945,
+          "accuracy": 0.5213
+        },
+        "other": {
+          "weighted_f1": 0.5644,
+          "macro_f1": 0.2968,
+          "accuracy": 0.5881
+        }
+      },
+      "text_pair": {
+        "main_cast": {
+          "weighted_f1": 0.6171,
+          "macro_f1": 0.4322,
+          "accuracy": 0.6354
+        },
+        "other": {
+          "weighted_f1": 0.6826,
+          "macro_f1": 0.4102,
+          "accuracy": 0.6916
+        }
+      },
+      "vision": {
+        "main_cast": {
+          "weighted_f1": 0.3357,
+          "macro_f1": 0.1681,
+          "accuracy": 0.366
+        },
+        "other": {
+          "weighted_f1": 0.4154,
+          "macro_f1": 0.157,
+          "accuracy": 0.4339
+        }
+      },
+      "fused_ctx_only": {
+        "main_cast": {
+          "weighted_f1": 0.4637,
+          "macro_f1": 0.2796,
+          "accuracy": 0.4995
+        },
+        "other": {
+          "weighted_f1": 0.5677,
+          "macro_f1": 0.2999,
+          "accuracy": 0.5947
+        }
+      },
+      "fused_concat": {
+        "main_cast": {
+          "weighted_f1": 0.5933,
+          "macro_f1": 0.4114,
+          "accuracy": 0.6053
+        },
+        "other": {
+          "weighted_f1": 0.6551,
+          "macro_f1": 0.381,
+          "accuracy": 0.6564
+        }
+      },
+      "fused": {
+        "main_cast": {
+          "weighted_f1": 0.6032,
+          "macro_f1": 0.4348,
+          "accuracy": 0.6178
+        },
+        "other": {
+          "weighted_f1": 0.6852,
+          "macro_f1": 0.4399,
+          "accuracy": 0.6938
+        }
+      },
+      "dialogue_id_note": "MELD numbers dialogues from 0 WITHIN each split, so raw id overlap across splits is expected and meaningless -- the splits are disjoint by construction (different episodes). We verified this matters for clip vendoring too: dia237_utt3 exists in both train and test and they are different clips."
+    },
+    "vision_dropout_robustness": {
+      "note": "fused head evaluated with the vision features zeroed, i.e. the camera is unavailable at inference time",
+      "fused_with_vision": {
+        "weighted_f1": 0.6175,
+        "macro_f1": 0.4381,
+        "accuracy": 0.631
+      },
+      "fused_vision_zeroed": {
+        "weighted_f1": 0.6198,
+        "macro_f1": 0.4451,
+        "accuracy": 0.636
+      },
+      "best_text_only": {
+        "weighted_f1": 0.6286,
+        "macro_f1": 0.4328,
+        "accuracy": 0.6452
+      }
+    },
+    "vision_coverage": {
+      "train": 0.9999,
+      "dev": 0.9991,
+      "test": 1.0
+    }
+  },
+  "calibration": {
+    "temperature": 1.2977,
+    "ece_uncalibrated": 0.0593,
+    "ece_calibrated": 0.0278,
+    "bins_uncalibrated": [
+      {
+        "lo": 0.0,
+        "hi": 0.06666666666666667,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.06666666666666667,
+        "hi": 0.13333333333333333,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.13333333333333333,
+        "hi": 0.2,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.2,
+        "hi": 0.26666666666666666,
+        "n": 18,
+        "conf": 0.24891036748886108,
+        "acc": 0.3333333333333333
+      },
+      {
+        "lo": 0.26666666666666666,
+        "hi": 0.3333333333333333,
+        "n": 100,
+        "conf": 0.306040495634079,
+        "acc": 0.21
+      },
+      {
+        "lo": 0.3333333333333333,
+        "hi": 0.4,
+        "n": 148,
+        "conf": 0.369284451007843,
+        "acc": 0.36486486486486486
+      },
+      {
+        "lo": 0.4,
+        "hi": 0.4666666666666667,
+        "n": 186,
+        "conf": 0.43387964367866516,
+        "acc": 0.3763440860215054
+      },
+      {
+        "lo": 0.4666666666666667,
+        "hi": 0.5333333333333333,
+        "n": 257,
+        "conf": 0.5007586479187012,
+        "acc": 0.46303501945525294
+      },
+      {
+        "lo": 0.5333333333333333,
+        "hi": 0.6,
+        "n": 237,
+        "conf": 0.5663966536521912,
+        "acc": 0.5021097046413502
+      },
+      {
+        "lo": 0.6,
+        "hi": 0.6666666666666666,
+        "n": 218,
+        "conf": 0.6294839382171631,
+        "acc": 0.5825688073394495
+      },
+      {
+        "lo": 0.6666666666666666,
+        "hi": 0.7333333333333333,
+        "n": 229,
+        "conf": 0.7016421556472778,
+        "acc": 0.62882096069869
+      },
+      {
+        "lo": 0.7333333333333333,
+        "hi": 0.8,
+        "n": 254,
+        "conf": 0.7686217427253723,
+        "acc": 0.7244094488188977
+      },
+      {
+        "lo": 0.8,
+        "hi": 0.8666666666666667,
+        "n": 271,
+        "conf": 0.834228515625,
+        "acc": 0.7453874538745388
+      },
+      {
+        "lo": 0.8666666666666667,
+        "hi": 0.9333333333333333,
+        "n": 333,
+        "conf": 0.9007500410079956,
+        "acc": 0.8198198198198198
+      },
+      {
+        "lo": 0.9333333333333333,
+        "hi": 1.0,
+        "n": 359,
+        "conf": 0.9645071029663086,
+        "acc": 0.9136490250696379
+      }
+    ],
+    "bins_calibrated": [
+      {
+        "lo": 0.0,
+        "hi": 0.06666666666666667,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.06666666666666667,
+        "hi": 0.13333333333333333,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.13333333333333333,
+        "hi": 0.2,
+        "n": 0,
+        "conf": 0.0,
+        "acc": 0.0
+      },
+      {
+        "lo": 0.2,
+        "hi": 0.26666666666666666,
+        "n": 49,
+        "conf": 0.24533666670322418,
+        "acc": 0.2653061224489796
+      },
+      {
+        "lo": 0.26666666666666666,
+        "hi": 0.3333333333333333,
+        "n": 174,
+        "conf": 0.30192700028419495,
+        "acc": 0.3160919540229885
+      },
+      {
+        "lo": 0.3333333333333333,
+        "hi": 0.4,
+        "n": 223,
+        "conf": 0.3673805296421051,
+        "acc": 0.3632286995515695
+      },
+      {
+        "lo": 0.4,
+        "hi": 0.4666666666666667,
+        "n": 295,
+        "conf": 0.43484336137771606,
+        "acc": 0.46440677966101696
+      },
+      {
+        "lo": 0.4666666666666667,
+        "hi": 0.5333333333333333,
+        "n": 297,
+        "conf": 0.49840834736824036,
+        "acc": 0.531986531986532
+      },
+      {
+        "lo": 0.5333333333333333,
+        "hi": 0.6,
+        "n": 259,
+        "conf": 0.5674049258232117,
+        "acc": 0.5945945945945946
+      },
+      {
+        "lo": 0.6,
+        "hi": 0.6666666666666666,
+        "n": 256,
+        "conf": 0.6342074871063232,
+        "acc": 0.68359375
+      },
+      {
+        "lo": 0.6666666666666666,
+        "hi": 0.7333333333333333,
+        "n": 267,
+        "conf": 0.6997158527374268,
+        "acc": 0.7565543071161048
+      },
+      {
+        "lo": 0.7333333333333333,
+        "hi": 0.8,
+        "n": 239,
+        "conf": 0.767540454864502,
+        "acc": 0.7573221757322176
+      },
+      {
+        "lo": 0.8,
+        "hi": 0.8666666666666667,
+        "n": 243,
+        "conf": 0.8340649604797363,
+        "acc": 0.8683127572016461
+      },
+      {
+        "lo": 0.8666666666666667,
+        "hi": 0.9333333333333333,
+        "n": 200,
+        "conf": 0.8979127407073975,
+        "acc": 0.9
+      },
+      {
+        "lo": 0.9333333333333333,
+        "hi": 1.0,
+        "n": 108,
+        "conf": 0.958453893661499,
+        "acc": 0.9259259259259259
+      }
+    ],
+    "risk_coverage": [
+      {
+        "tau": 0.0,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.0253,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.0506,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.076,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.1013,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.1266,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.1519,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.1772,
+        "coverage": 1.0,
+        "weighted_f1": 0.6175,
+        "accuracy": 0.631
+      },
+      {
+        "tau": 0.2025,
+        "coverage": 0.9992,
+        "weighted_f1": 0.6176,
+        "accuracy": 0.6311
+      },
+      {
+        "tau": 0.2279,
+        "coverage": 0.9977,
+        "weighted_f1": 0.618,
+        "accuracy": 0.6317
+      },
+      {
+        "tau": 0.2532,
+        "coverage": 0.9877,
+        "weighted_f1": 0.6215,
+        "accuracy": 0.6354
+      },
+      {
+        "tau": 0.2785,
+        "coverage": 0.9705,
+        "weighted_f1": 0.6278,
+        "accuracy": 0.6423
+      },
+      {
+        "tau": 0.3038,
+        "coverage": 0.9456,
+        "weighted_f1": 0.6389,
+        "accuracy": 0.6532
+      },
+      {
+        "tau": 0.3291,
+        "coverage": 0.9203,
+        "weighted_f1": 0.6453,
+        "accuracy": 0.6595
+      },
+      {
+        "tau": 0.3545,
+        "coverage": 0.8912,
+        "weighted_f1": 0.6556,
+        "accuracy": 0.6694
+      },
+      {
+        "tau": 0.3798,
+        "coverage": 0.854,
+        "weighted_f1": 0.671,
+        "accuracy": 0.6846
+      },
+      {
+        "tau": 0.4051,
+        "coverage": 0.8203,
+        "weighted_f1": 0.6806,
+        "accuracy": 0.6945
+      },
+      {
+        "tau": 0.4304,
+        "coverage": 0.7816,
+        "weighted_f1": 0.6952,
+        "accuracy": 0.7098
+      },
+      {
+        "tau": 0.4557,
+        "coverage": 0.7387,
+        "weighted_f1": 0.7059,
+        "accuracy": 0.721
+      },
+      {
+        "tau": 0.481,
+        "coverage": 0.6877,
+        "weighted_f1": 0.7225,
+        "accuracy": 0.737
+      },
+      {
+        "tau": 0.5064,
+        "coverage": 0.6418,
+        "weighted_f1": 0.7395,
+        "accuracy": 0.7528
+      },
+      {
+        "tau": 0.5317,
+        "coverage": 0.6031,
+        "weighted_f1": 0.752,
+        "accuracy": 0.7649
+      },
+      {
+        "tau": 0.557,
+        "coverage": 0.5678,
+        "weighted_f1": 0.7651,
+        "accuracy": 0.778
+      },
+      {
+        "tau": 0.5823,
+        "coverage": 0.5307,
+        "weighted_f1": 0.7721,
+        "accuracy": 0.7856
+      },
+      {
+        "tau": 0.6076,
+        "coverage": 0.4931,
+        "weighted_f1": 0.7895,
+        "accuracy": 0.8026
+      },
+      {
+        "tau": 0.6329,
+        "coverage": 0.4544,
+        "weighted_f1": 0.7987,
+        "accuracy": 0.812
+      },
+      {
+        "tau": 0.6583,
+        "coverage": 0.4199,
+        "weighted_f1": 0.8121,
+        "accuracy": 0.8248
+      },
+      {
+        "tau": 0.6836,
+        "coverage": 0.3774,
+        "weighted_f1": 0.8164,
+        "accuracy": 0.8284
+      },
+      {
+        "tau": 0.7089,
+        "coverage": 0.3406,
+        "weighted_f1": 0.823,
+        "accuracy": 0.8346
+      },
+      {
+        "tau": 0.7342,
+        "coverage": 0.3011,
+        "weighted_f1": 0.8404,
+        "accuracy": 0.8511
+      },
+      {
+        "tau": 0.7595,
+        "coverage": 0.2678,
+        "weighted_f1": 0.8647,
+        "accuracy": 0.8727
+      },
+      {
+        "tau": 0.7849,
+        "coverage": 0.233,
+        "weighted_f1": 0.8769,
+        "accuracy": 0.8832
+      },
+      {
+        "tau": 0.8102,
+        "coverage": 0.1985,
+        "weighted_f1": 0.885,
+        "accuracy": 0.8919
+      },
+      {
+        "tau": 0.8355,
+        "coverage": 0.1659,
+        "weighted_f1": 0.9009,
+        "accuracy": 0.9076
+      },
+      {
+        "tau": 0.8608,
+        "coverage": 0.1215,
+        "weighted_f1": 0.9038,
+        "accuracy": 0.9117
+      },
+      {
+        "tau": 0.8861,
+        "coverage": 0.0916,
+        "weighted_f1": 0.9094,
+        "accuracy": 0.9163
+      },
+      {
+        "tau": 0.9114,
+        "coverage": 0.0632,
+        "weighted_f1": 0.9222,
+        "accuracy": 0.9333
+      },
+      {
+        "tau": 0.9368,
+        "coverage": 0.0391,
+        "weighted_f1": 0.9147,
+        "accuracy": 0.9314
+      },
+      {
+        "tau": 0.9621,
+        "coverage": 0.0153,
+        "weighted_f1": 1.0,
+        "accuracy": 1.0
+      }
+    ],
+    "tau_abstain": 0.45,
+    "at_shipped_tau": {
+      "tau": 0.4557,
+      "coverage": 0.7387,
+      "weighted_f1": 0.7059,
+      "accuracy": 0.721
+    },
+    "abstain_rate_at_shipped_tau": 0.2613
+  },
+  "streaming": {
+    "coverage_curve": {
+      "curve": [
+        {
+          "frac": 0.1,
+          "mean_elapsed_ms": 313.3,
+          "weighted_f1": 0.4304,
+          "accuracy": 0.5291,
+          "mean_confidence": 0.7537
+        },
+        {
+          "frac": 0.2,
+          "mean_elapsed_ms": 626.5,
+          "weighted_f1": 0.455,
+          "accuracy": 0.5379,
+          "mean_confidence": 0.7174
+        },
+        {
+          "frac": 0.3,
+          "mean_elapsed_ms": 939.8,
+          "weighted_f1": 0.4781,
+          "accuracy": 0.5483,
+          "mean_confidence": 0.6877
+        },
+        {
+          "frac": 0.4,
+          "mean_elapsed_ms": 1253.1,
+          "weighted_f1": 0.4923,
+          "accuracy": 0.5517,
+          "mean_confidence": 0.6663
+        },
+        {
+          "frac": 0.5,
+          "mean_elapsed_ms": 1566.4,
+          "weighted_f1": 0.5136,
+          "accuracy": 0.5636,
+          "mean_confidence": 0.6496
+        },
+        {
+          "frac": 0.6,
+          "mean_elapsed_ms": 1879.6,
+          "weighted_f1": 0.525,
+          "accuracy": 0.5716,
+          "mean_confidence": 0.6386
+        },
+        {
+          "frac": 0.7,
+          "mean_elapsed_ms": 2192.9,
+          "weighted_f1": 0.5368,
+          "accuracy": 0.5747,
+          "mean_confidence": 0.6314
+        },
+        {
+          "frac": 0.8,
+          "mean_elapsed_ms": 2506.2,
+          "weighted_f1": 0.5586,
+          "accuracy": 0.5874,
+          "mean_confidence": 0.6171
+        },
+        {
+          "frac": 0.9,
+          "mean_elapsed_ms": 2819.4,
+          "weighted_f1": 0.5835,
+          "accuracy": 0.6038,
+          "mean_confidence": 0.6106
+        },
+        {
+          "frac": 1.0,
+          "mean_elapsed_ms": 3132.7,
+          "weighted_f1": 0.6186,
+          "accuracy": 0.6322,
+          "mean_confidence": 0.609
+        }
+      ],
+      "full_weighted_f1": 0.6186,
+      "frac_to_within_1pt": 1.0,
+      "mean_utterance_ms": 3132.7
+    },
+    "commit_policy": {
+      "lambda_delay": 0.35,
+      "learned_policy": {
+        "mean_heard": 0.1018,
+        "weighted_f1": 0.4306,
+        "accuracy": 0.5295,
+        "mean_frac_heard": 0.002,
+        "mean_reward": 0.5288
+      },
+      "baselines": {
+        "fixed_conf_0.30": {
+          "mean_heard": 0.1022,
+          "weighted_f1": 0.4323,
+          "accuracy": 0.5303,
+          "mean_frac_heard": 0.0024,
+          "mean_reward": 0.5294
+        },
+        "fixed_conf_0.40": {
+          "mean_heard": 0.1191,
+          "weighted_f1": 0.436,
+          "accuracy": 0.5322,
+          "mean_frac_heard": 0.0212,
+          "mean_reward": 0.5248
+        },
+        "fixed_conf_0.50": {
+          "mean_heard": 0.157,
+          "weighted_f1": 0.4554,
+          "accuracy": 0.5429,
+          "mean_frac_heard": 0.0634,
+          "mean_reward": 0.5207
+        },
+        "fixed_conf_0.60": {
+          "mean_heard": 0.2231,
+          "weighted_f1": 0.4809,
+          "accuracy": 0.5544,
+          "mean_frac_heard": 0.1368,
+          "mean_reward": 0.5065
+        },
+        "fixed_conf_0.70": {
+          "mean_heard": 0.3302,
+          "weighted_f1": 0.5183,
+          "accuracy": 0.572,
+          "mean_frac_heard": 0.2558,
+          "mean_reward": 0.4825
+        },
+        "fixed_conf_0.80": {
+          "mean_heard": 0.4946,
+          "weighted_f1": 0.5618,
+          "accuracy": 0.5992,
+          "mean_frac_heard": 0.4384,
+          "mean_reward": 0.4458
+        },
+        "fixed_step_1": {
+          "mean_heard": 0.2,
+          "weighted_f1": 0.455,
+          "accuracy": 0.5379,
+          "mean_frac_heard": 0.1111,
+          "mean_reward": 0.499
+        },
+        "fixed_step_2": {
+          "mean_heard": 0.3,
+          "weighted_f1": 0.4781,
+          "accuracy": 0.5483,
+          "mean_frac_heard": 0.2222,
+          "mean_reward": 0.4705
+        },
+        "fixed_step_4": {
+          "mean_heard": 0.5,
+          "weighted_f1": 0.5136,
+          "accuracy": 0.5636,
+          "mean_frac_heard": 0.4444,
+          "mean_reward": 0.408
+        },
+        "fixed_step_6": {
+          "mean_heard": 0.7,
+          "weighted_f1": 0.5368,
+          "accuracy": 0.5747,
+          "mean_frac_heard": 0.6667,
+          "mean_reward": 0.3414
+        },
+        "fixed_step_8": {
+          "mean_heard": 0.9,
+          "weighted_f1": 0.5835,
+          "accuracy": 0.6038,
+          "mean_frac_heard": 0.8889,
+          "mean_reward": 0.2927
+        },
+        "always_wait": {
+          "mean_heard": 1.0,
+          "weighted_f1": 0.6186,
+          "accuracy": 0.6322,
+          "mean_frac_heard": 1.0,
+          "mean_reward": 0.2822
+        }
+      },
+      "best_fixed_baseline": {
+        "name": "fixed_conf_0.30",
+        "mean_heard": 0.1022,
+        "weighted_f1": 0.4323,
+        "accuracy": 0.5303,
+        "mean_frac_heard": 0.0024,
+        "mean_reward": 0.5294
+      },
+      "reward_gain_vs_best_fixed": -0.0006,
+      "setup": "offline fitted-Q backward induction on dev, full-information rewards (every prefix is evaluable); reported on MELD test",
+      "sweep": [
+        {
+          "lambda_delay": 0.15,
+          "learned_reward": 0.5317,
+          "learned_frac_heard": 0.404,
+          "learned_wf1": 0.5335,
+          "best_fixed": "fixed_conf_0.60",
+          "best_fixed_reward": 0.5339,
+          "gain": -0.0022
+        },
+        {
+          "lambda_delay": 0.25,
+          "learned_reward": 0.526,
+          "learned_frac_heard": 0.132,
+          "learned_wf1": 0.4429,
+          "best_fixed": "fixed_conf_0.30",
+          "best_fixed_reward": 0.5297,
+          "gain": -0.0037
+        },
+        {
+          "lambda_delay": 0.35,
+          "learned_reward": 0.5288,
+          "learned_frac_heard": 0.1018,
+          "learned_wf1": 0.4306,
+          "best_fixed": "fixed_conf_0.30",
+          "best_fixed_reward": 0.5294,
+          "gain": -0.0006
+        },
+        {
+          "lambda_delay": 0.5,
+          "learned_reward": 0.5291,
+          "learned_frac_heard": 0.1,
+          "learned_wf1": 0.4304,
+          "best_fixed": "fixed_conf_0.30",
+          "best_fixed_reward": 0.5291,
+          "gain": 0.0
+        }
+      ]
+    }
+  },
+  "smoothing": {
+    "smoothing": "ema(a=0.6)+hysteresis(m=0.15)+dwell(700ms)",
+    "n_dialogues": 280,
+    "total_speech_minutes": 136.27,
+    "raw": {
+      "weighted_f1": 0.6175,
+      "macro_f1": 0.4381,
+      "accuracy": 0.631,
+      "switches": 1264,
+      "switches_per_minute": 9.28
+    },
+    "smoothed": {
+      "weighted_f1": 0.5381,
+      "macro_f1": 0.3504,
+      "accuracy": 0.5648,
+      "switches": 537,
+      "switches_per_minute": 3.94
+    },
+    "note": "Total speech minutes sums utterance durations only; MELD does not give inter-turn gaps, so the real-world switch rate would be lower still.",
+    "frontier": [
+      {
+        "alpha": 1.0,
+        "margin": 0.0,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.6094,
+        "switches": 1235,
+        "switches_per_minute": 9.06,
+        "shipped": false
+      },
+      {
+        "alpha": 1.0,
+        "margin": 0.1,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.6112,
+        "switches": 1091,
+        "switches_per_minute": 8.01,
+        "shipped": false
+      },
+      {
+        "alpha": 1.0,
+        "margin": 0.15,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.6095,
+        "switches": 1033,
+        "switches_per_minute": 7.58,
+        "shipped": false
+      },
+      {
+        "alpha": 1.0,
+        "margin": 0.25,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5862,
+        "switches": 873,
+        "switches_per_minute": 6.41,
+        "shipped": false
+      },
+      {
+        "alpha": 0.8,
+        "margin": 0.0,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.6064,
+        "switches": 1092,
+        "switches_per_minute": 8.01,
+        "shipped": false
+      },
+      {
+        "alpha": 0.8,
+        "margin": 0.1,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.593,
+        "switches": 890,
+        "switches_per_minute": 6.53,
+        "shipped": false
+      },
+      {
+        "alpha": 0.8,
+        "margin": 0.15,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5803,
+        "switches": 792,
+        "switches_per_minute": 5.81,
+        "shipped": false
+      },
+      {
+        "alpha": 0.8,
+        "margin": 0.25,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5542,
+        "switches": 616,
+        "switches_per_minute": 4.52,
+        "shipped": false
+      },
+      {
+        "alpha": 0.6,
+        "margin": 0.0,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5855,
+        "switches": 855,
+        "switches_per_minute": 6.27,
+        "shipped": false
+      },
+      {
+        "alpha": 0.6,
+        "margin": 0.1,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5577,
+        "switches": 623,
+        "switches_per_minute": 4.57,
+        "shipped": false
+      },
+      {
+        "alpha": 0.6,
+        "margin": 0.15,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5381,
+        "switches": 537,
+        "switches_per_minute": 3.94,
+        "shipped": true
+      },
+      {
+        "alpha": 0.6,
+        "margin": 0.25,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5072,
+        "switches": 351,
+        "switches_per_minute": 2.58,
+        "shipped": false
+      },
+      {
+        "alpha": 0.4,
+        "margin": 0.0,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.5436,
+        "switches": 585,
+        "switches_per_minute": 4.29,
+        "shipped": false
+      },
+      {
+        "alpha": 0.4,
+        "margin": 0.1,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.497,
+        "switches": 339,
+        "switches_per_minute": 2.49,
+        "shipped": false
+      },
+      {
+        "alpha": 0.4,
+        "margin": 0.15,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.4778,
+        "switches": 258,
+        "switches_per_minute": 1.89,
+        "shipped": false
+      },
+      {
+        "alpha": 0.4,
+        "margin": 0.25,
+        "min_dwell_ms": 700,
+        "weighted_f1": 0.4474,
+        "switches": 167,
+        "switches_per_minute": 1.23,
+        "shipped": false
+      }
+    ],
+    "switch_reduction_pct": 57.5,
+    "weighted_f1_delta": -0.0794,
+    "trace": {
+      "dialogue_id": 17,
+      "turns": [
+        {
+          "uid": "dia17_utt0",
+          "t_ms": 0.0,
+          "text": "Hey. When you guys were kids and you played",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.8986
+        },
+        {
+          "uid": "dia17_utt1",
+          "t_ms": 3127.0,
+          "text": "I was always Joanne.",
+          "gold": "neutral",
+          "raw": "joy",
+          "smoothed": "neutral",
+          "confidence": 0.4651
+        },
+        {
+          "uid": "dia17_utt2",
+          "t_ms": 6796.0,
+          "text": "Question. Was ah, \u2018Egg the Gellers!\u2019 the war cry of your neighbourhood?",
+          "gold": "neutral",
+          "raw": "joy",
+          "smoothed": "joy",
+          "confidence": 0.4442
+        },
+        {
+          "uid": "dia17_utt3",
+          "t_ms": 11049.0,
+          "text": "Ewww! Oh! It\u2019s the Mattress King!",
+          "gold": "disgust",
+          "raw": "joy",
+          "smoothed": "joy",
+          "confidence": 0.5159
+        },
+        {
+          "uid": "dia17_utt4",
+          "t_ms": 12841.0,
+          "text": "Don\u2019t look honey. Change the channel! Change the channel!",
+          "gold": "disgust",
+          "raw": "anger",
+          "smoothed": "joy",
+          "confidence": 0.3615
+        },
+        {
+          "uid": "dia17_utt5",
+          "t_ms": 14508.0,
+          "text": "Wait! Wait! I wanna see this. After I divorce him, half of that kingdom is gonna be mine.",
+          "gold": "joy",
+          "raw": "sadness",
+          "smoothed": "joy",
+          "confidence": 0.2762
+        },
+        {
+          "uid": "dia17_utt6",
+          "t_ms": 20430.0,
+          "text": "What a wank!",
+          "gold": "anger",
+          "raw": "disgust",
+          "smoothed": "joy",
+          "confidence": 0.2348
+        },
+        {
+          "uid": "dia17_utt7",
+          "t_ms": 22306.0,
+          "text": "Oh, I cannot believe he\u2019s using our divorce to sell mattresses.",
+          "gold": "anger",
+          "raw": "sadness",
+          "smoothed": "sadness",
+          "confidence": 0.3466
+        },
+        {
+          "uid": "dia17_utt8",
+          "t_ms": 26351.0,
+          "text": "I know!",
+          "gold": "anger",
+          "raw": "anger",
+          "smoothed": "sadness",
+          "confidence": 0.223
+        },
+        {
+          "uid": "dia17_utt9",
+          "t_ms": 30521.0,
+          "text": "And four ninety-nine for a pillow top queen set, who cares about the divorce, those babies",
+          "gold": "anger",
+          "raw": "neutral",
+          "smoothed": "sadness",
+          "confidence": 0.2756
+        },
+        {
+          "uid": "dia17_utt10",
+          "t_ms": 32855.0,
+          "text": "And I\u2019m appalled for you by the way.",
+          "gold": "anger",
+          "raw": "disgust",
+          "smoothed": "sadness",
+          "confidence": 0.3272
+        },
+        {
+          "uid": "dia17_utt11",
+          "t_ms": 35691.0,
+          "text": "You had to do it, didn\u2019t you? You couldn\u2019t just leave it alone.",
+          "gold": "sadness",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.3273
+        },
+        {
+          "uid": "dia17_utt12",
+          "t_ms": 37859.0,
+          "text": "Four percent. Okay. I tip more than that when there\u2019s a bug in my food.",
+          "gold": "disgust",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.4451
+        },
+        {
+          "uid": "dia17_utt13",
+          "t_ms": 42362.0,
+          "text": "Ross, tonight was about the two of you getting along.  Oh, would you just see my chiroprac",
+          "gold": "anger",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.3901
+        },
+        {
+          "uid": "dia17_utt14",
+          "t_ms": 48242.0,
+          "text": "Yeah, I\u2019m gonna go to a doctor who went to school in a mini-mall.",
+          "gold": "disgust",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.5548
+        },
+        {
+          "uid": "dia17_utt15",
+          "t_ms": 52328.0,
+          "text": "Hey Pheebs, what are you doing?",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.6226
+        },
+        {
+          "uid": "dia17_utt16",
+          "t_ms": 54329.0,
+          "text": "I\u2019m, I\u2019m freaking out!",
+          "gold": "fear",
+          "raw": "joy",
+          "smoothed": "neutral",
+          "confidence": 0.2649
+        },
+        {
+          "uid": "dia17_utt17",
+          "t_ms": 57164.0,
+          "text": "Monica kinda trusted me with something and she shouldn\u2019t have!",
+          "gold": "fear",
+          "raw": "surprise",
+          "smoothed": "neutral",
+          "confidence": 0.2744
+        },
+        {
+          "uid": "dia17_utt18",
+          "t_ms": 61041.0,
+          "text": "All right, I haven\u2019t lived here in a while, so I have to ask you something.",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.4745
+        },
+        {
+          "uid": "dia17_utt19",
+          "t_ms": 64002.0,
+          "text": "Does Monica still turn on the lights in her bedroom?",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.4887
+        },
+        {
+          "uid": "dia17_utt20",
+          "t_ms": 66379.0,
+          "text": "Um. yeah.",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.7081
+        },
+        {
+          "uid": "dia17_utt21",
+          "t_ms": 67401.0,
+          "text": "I am",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.7779
+        },
+        {
+          "uid": "dia17_utt22",
+          "t_ms": 68727.0,
+          "text": "All right, look, here\u2019s the bottom line Ross, this is fixable, if we act fast, okay.",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.8367
+        },
+        {
+          "uid": "dia17_utt23",
+          "t_ms": 73355.0,
+          "text": "So, I\u2019ll invite him to brunch tomorrow and you can make nice.",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.871
+        },
+        {
+          "uid": "dia17_utt24",
+          "t_ms": 76149.0,
+          "text": "Look, honey, I have tried to make nice, it doesn\u2019t work.",
+          "gold": "anger",
+          "raw": "sadness",
+          "smoothed": "neutral",
+          "confidence": 0.4526
+        },
+        {
+          "uid": "dia17_utt25",
+          "t_ms": 79401.0,
+          "text": "Okay, look, Ross, I realise that my Father is difficult, but that\u2019s why you have got to be",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.4537
+        },
+        {
+          "uid": "dia17_utt26",
+          "t_ms": 85323.0,
+          "text": "Look sweetie, I could be the bigger man, I could be the biggest man, I could be a big, hug",
+          "gold": "anger",
+          "raw": "anger",
+          "smoothed": "anger",
+          "confidence": 0.4495
+        },
+        {
+          "uid": "dia17_utt27",
+          "t_ms": 97501.0,
+          "text": "Like me tiny doctor!\u2019",
+          "gold": "anger",
+          "raw": "anger",
+          "smoothed": "anger",
+          "confidence": 0.4944
+        },
+        {
+          "uid": "dia17_utt28",
+          "t_ms": 101880.0,
+          "text": "Okay, well can\u2019t you just try it one more time Ross? For me? For me?",
+          "gold": "sadness",
+          "raw": "sadness",
+          "smoothed": "anger",
+          "confidence": 0.3625
+        },
+        {
+          "uid": "dia17_utt29",
+          "t_ms": 105383.0,
+          "text": "Rachel one brunch is not gonna solve anything. You gotta face it, okay we\u2019re never gonna g",
+          "gold": "anger",
+          "raw": "sadness",
+          "smoothed": "anger",
+          "confidence": 0.3649
+        },
+        {
+          "uid": "dia17_utt30",
+          "t_ms": 110471.0,
+          "text": "Okay, well you are just gonna have too, okay.",
+          "gold": "anger",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.4441
+        },
+        {
+          "uid": "dia17_utt31",
+          "t_ms": 112722.0,
+          "text": "Because I already got a Mother and a Father who cannot stay in the same room together, oka",
+          "gold": "anger",
+          "raw": "anger",
+          "smoothed": "anger",
+          "confidence": 0.5256
+        },
+        {
+          "uid": "dia17_utt32",
+          "t_ms": 118477.0,
+          "text": "Okay, okay, okay.  I\u2019ll get the bagels.",
+          "gold": "neutral",
+          "raw": "neutral",
+          "smoothed": "neutral",
+          "confidence": 0.5884
+        }
+      ]
+    }
+  },
+  "counterfactual": {
+    "n": 2610,
+    "vision_swap": {
+      "mean_tv": 0.1478,
+      "median_tv": 0.1202,
+      "p90_tv": 0.2881,
+      "emotion_flip_rate": 0.1701,
+      "behaviour_intent_change_rate": 0.3659
+    },
+    "text_swap": {
+      "mean_tv": 0.504,
+      "median_tv": 0.5133,
+      "p90_tv": 0.8152,
+      "emotion_flip_rate": 0.6303,
+      "behaviour_intent_change_rate": 0.7218
+    },
+    "interpretation": "Vision-swap TV >> 0 means the visual stream genuinely moves the posterior. Compare the two blocks to size text dominance: if text_swap dwarfs vision_swap, the model is mostly reading words, which is the expected and honest finding on MELD.",
+    "examples": [
+      {
+        "uid": "dia46_utt7",
+        "text": "I stepped in something icky.",
+        "gold": "joy",
+        "with_own_video": {
+          "emotion": "joy",
+          "confidence": 0.8903,
+          "intent": "celebrate"
+        },
+        "with_video_from": "dia70_utt18",
+        "with_swapped_video": {
+          "emotion": "sadness",
+          "confidence": 0.3477,
+          "intent": "attend"
+        },
+        "total_variation": 0.7747
+      },
+      {
+        "uid": "dia234_utt5",
+        "text": "You were gonna spill hot coffee all over me, huh?!!",
+        "gold": "anger",
+        "with_own_video": {
+          "emotion": "anger",
+          "confidence": 0.7277,
+          "intent": "recoil"
+        },
+        "with_video_from": "dia233_utt10",
+        "with_swapped_video": {
+          "emotion": "joy",
+          "confidence": 0.7778,
+          "intent": "celebrate"
+        },
+        "total_variation": 0.7599
+      },
+      {
+        "uid": "dia144_utt2",
+        "text": "Now wait a minute, you be nice! All right? I didn\u2019t bring you here so you can ambush her.",
+        "gold": "anger",
+        "with_own_video": {
+          "emotion": "anger",
+          "confidence": 0.8324,
+          "intent": "recoil"
+        },
+        "with_video_from": "dia66_utt1",
+        "with_swapped_video": {
+          "emotion": "joy",
+          "confidence": 0.3203,
+          "intent": "attend"
+        },
+        "total_variation": 0.7582
+      },
+      {
+        "uid": "dia46_utt8",
+        "text": "Sticky shoes, sticky shoes, always make me smile. Sticky shoes, sticky shoes, next time I\u2019ll.... avoid the....",
+        "gold": "joy",
+        "with_own_video": {
+          "emotion": "joy",
+          "confidence": 0.8541,
+          "intent": "celebrate"
+        },
+        "with_video_from": "dia25_utt1",
+        "with_swapped_video": {
+          "emotion": "sadness",
+          "confidence": 0.3984,
+          "intent": "attend"
+        },
+        "total_variation": 0.6936
+      },
+      {
+        "uid": "dia238_utt4",
+        "text": "Here's my retainer!",
+        "gold": "neutral",
+        "with_own_video": {
+          "emotion": "neutral",
+          "confidence": 0.3963,
+          "intent": "attend"
+        },
+        "with_video_from": "dia5_utt1",
+        "with_swapped_video": {
+          "emotion": "joy",
+          "confidence": 0.7926,
+          "intent": "celebrate"
+        },
+        "total_variation": 0.6726
+      },
+      {
+        "uid": "dia173_utt14",
+        "text": "You went through all this time and effort to make this tape for me!",
+        "gold": "sadness",
+        "with_own_video": {
+          "emotion": "anger",
+          "confidence": 0.6876,
+          "intent": "recoil"
+        },
+        "with_video_from": "dia180_utt5",
+        "with_swapped_video": {
+          "emotion": "joy",
+          "confidence": 0.6835,
+          "intent": "celebrate"
+        },
+        "total_variation": 0.6405
+      }
+    ]
+  },
+  "latency": {
+    "hardware": {
+      "machine": "arm64",
+      "system": "macOS-14.5-arm64-arm-64bit",
+      "device": "mps",
+      "python": "3.12.12"
+    },
+    "stages": {
+      "decode_mp4_ms": {
+        "n": 40,
+        "p50": 165.24,
+        "p95": 339.78,
+        "mean": 193.34,
+        "max": 364.57
+      },
+      "clip_1frame_ms": {
+        "n": 40,
+        "p50": 18.84,
+        "p95": 20.53,
+        "mean": 18.7,
+        "max": 22.14
+      },
+      "clip_8frame_ms": {
+        "n": 40,
+        "p50": 64.96,
+        "p95": 71.92,
+        "mean": 65.64,
+        "max": 73.84
+      },
+      "roberta_ms": {
+        "n": 40,
+        "p50": 15.94,
+        "p95": 17.92,
+        "mean": 16.71,
+        "max": 34.11
+      },
+      "pool_ms": {
+        "n": 40,
+        "p50": 0.08,
+        "p95": 0.09,
+        "mean": 0.09,
+        "max": 0.1
+      },
+      "fusion_heads_ms": {
+        "n": 40,
+        "p50": 2.43,
+        "p95": 3.91,
+        "mean": 3.27,
+        "max": 31.37
+      },
+      "belief_ms": {
+        "n": 40,
+        "p50": 0.03,
+        "p95": 0.05,
+        "mean": 0.03,
+        "max": 0.11
+      },
+      "policy_ms": {
+        "n": 40,
+        "p50": 0.09,
+        "p95": 0.11,
+        "mean": 0.1,
+        "max": 0.33
+      },
+      "reflex_total_ms": {
+        "n": 40,
+        "p50": 19.88,
+        "p95": 21.91,
+        "mean": 20.02,
+        "max": 28.76
+      },
+      "deliberative_total_ms": {
+        "n": 40,
+        "p50": 3.14,
+        "p95": 4.6,
+        "mean": 3.98,
+        "max": 32.02
+      },
+      "ttft_ms": {
+        "n": 15,
+        "p50": 566.68,
+        "p95": 570.86,
+        "mean": 564.14,
+        "max": 573.16
+      },
+      "response_total_ms": {
+        "n": 15,
+        "p50": 801.4,
+        "p95": 882.77,
+        "mean": 812.43,
+        "max": 891.63
+      }
+    },
+    "real_time_factor": {
+      "n": 40,
+      "p50": 0.14,
+      "p95": 0.25,
+      "mean": 0.16,
+      "max": 0.27
+    },
+    "peak_rss_mb": 2447.2,
+    "budgets": {
+      "reflexive_ms": 300,
+      "ttft_ms": 800
+    },
+    "responder": "Qwen2.5-1.5B-Instruct-4bit (MLX)",
+    "budget_met": {
+      "reflexive_p95": true,
+      "ttft_p95": true
+    }
+  },
+  "ledger": {
+    "rows": [
+      {
+        "component": "openai/clip-vit-base-patch32",
+        "role": "vision tower (frames -> 512d)",
+        "params": 87849216
+      },
+      {
+        "component": "roberta-base",
+        "role": "utterance+context encoder",
+        "params": 124645632
+      },
+      {
+        "component": "FastAffectHead",
+        "role": "tier-1 reflexive v/a/salience",
+        "params": 133123
+      },
+      {
+        "component": "GatedFusionHead[fused]",
+        "role": "tier-2 emotion posterior (+1 temperature)",
+        "params": 1560720
+      },
+      {
+        "component": "FusionHead[text_pair]",
+        "role": "evidence: text-only margin",
+        "params": 793608
+      },
+      {
+        "component": "FusionHead[vision]",
+        "role": "evidence: vision-only margin / disagreement",
+        "params": 1056776
+      },
+      {
+        "component": "BeliefTracker",
+        "role": "EMA + hysteresis + dwell",
+        "params": 0
+      },
+      {
+        "component": "BehaviorPolicy",
+        "role": "state -> intent/light/motion",
+        "params": 0
+      },
+      {
+        "component": "TemplateResponder",
+        "role": "zero-parameter fallback speech",
+        "params": 0
+      },
+      {
+        "component": "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+        "role": "response generation (loaded and counted)",
+        "params": 1591950848
+      }
+    ],
+    "total_params": 1807989923,
+    "budget": 6000000000,
+    "headroom": 4192010077,
+    "headroom_pct": 69.9,
+    "within_budget": true,
+    "deployed_lamp_projection": {
+      "note": "What the ledger would look like on a real LeLamp that has to hear and speak. Published totals, NOT measured here.",
+      "extras": [
+        {
+          "component": "openai/whisper-small",
+          "role": "streaming ASR",
+          "params": 244000000
+        },
+        {
+          "component": "silero-vad v4",
+          "role": "voice activity / endpointing",
+          "params": 1100000
+        },
+        {
+          "component": "piper en_US-lessac-medium",
+          "role": "TTS",
+          "params": 20000000
+        },
+        {
+          "component": "SCRFD-500m",
+          "role": "face detect + active speaker gating",
+          "params": 600000
+        }
+      ],
+      "total_params": 2073689923,
+      "headroom": 3926310077,
+      "headroom_pct": 65.4,
+      "within_budget": true
+    }
+  }
+}

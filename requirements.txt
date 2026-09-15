@@ -1,0 +1,24 @@
+# --- core inference path -------------------------------------------------
+torch>=2.2
+transformers>=4.40
+safetensors
+huggingface_hub
+av                  # PyAV: in-memory mp4 decode (bundles ffmpeg, no brew needed)
+pillow
+numpy
+certifi             # Homebrew Python ships no CA bundle; urllib needs one
+
+# --- training heads / evaluation -----------------------------------------
+scikit-learn
+matplotlib
+
+# --- terminal lamp visualiser --------------------------------------------
+rich
+
+# --- tests ----------------------------------------------------------------
+pytest
+
+# --- optional: local LLM responder on Apple Silicon ------------------------
+# The pipeline runs without it and falls back to the zero-parameter template
+# responder, but `make demo` is much more interesting with it installed.
+# mlx-lm>=0.20
