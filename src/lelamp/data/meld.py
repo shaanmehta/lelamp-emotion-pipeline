@@ -9,6 +9,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from pathlib import Path
+
 from ..config import CSV_DIR, CONTEXT_TURNS, E2I
 
 # MELD ships each split's clips in a differently-named directory inside the
@@ -49,6 +51,32 @@ class Utterance:
         return f"{self.uid}.mp4"
 
 
+CSV_URL = ("https://raw.githubusercontent.com/declare-lab/MELD/master/"
+           "data/MELD/{split}_sent_emo.csv")
+
+
+def ensure_csv(split: str) -> "Path":
+    """MELD transcripts/labels, fetched once if absent (~1.5 MB for all three).
+
+    They are also committed to this repo so `make demo` works with no network
+    at all; this is the fallback for a checkout that dropped them.
+    """
+    path = CSV_DIR / f"{split}_sent_emo.csv"
+    if path.exists() and path.stat().st_size > 0:
+        return path
+    import ssl
+    import urllib.request
+
+    import certifi
+    CSV_DIR.mkdir(parents=True, exist_ok=True)
+    ctx = ssl.create_default_context(cafile=certifi.where())
+    url = CSV_URL.format(split=split)
+    print(f"[meld] fetching {split}_sent_emo.csv ...", flush=True)
+    with urllib.request.urlopen(url, timeout=60, context=ctx) as r:
+        path.write_bytes(r.read())
+    return path
+
+
 def load_split(split: str) -> list[Utterance]:
     """Read one MELD CSV into Utterance records with prior-turn context.
 
@@ -56,7 +84,7 @@ def load_split(split: str) -> list[Utterance]:
     dialogue. Peeking at later turns would be a leak and is the easiest one to
     commit by accident.
     """
-    path = CSV_DIR / f"{split}_sent_emo.csv"
+    path = ensure_csv(split)
     rows: list[Utterance] = []
     with open(path, newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):

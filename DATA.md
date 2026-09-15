@@ -4,8 +4,9 @@
 Poria et al., *MELD: A Multimodal Multi-Party Dataset for Emotion Recognition in
 Conversations*, ACL 2019. https://affective-meld.github.io/
 
-- **Transcripts / labels** are fetched from the official repo
-  (`declare-lab/MELD`) into `data/meld_csv/` on first use.
+- **Transcripts / labels** are committed under `data/meld_csv/` (1.5 MB) so the
+  demo runs offline; `ensure_csv()` re-fetches them from the official repo if
+  they are missing.
 - **Video** is streamed from `MELD.Raw.tar.gz` (10.9 GB) and never stored. See
   `src/lelamp/data/stream_extract.py`.
 - **`assets/clips/`** contains a small number of MELD test clips (dialogues 237

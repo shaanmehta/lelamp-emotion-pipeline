@@ -34,7 +34,7 @@ rate and renders the lamp in your terminal as the state changes.
 make grounding # same words, different video -> different state and behaviour
 make eval      # regenerate every number and figure in this README (~2 min)
 make ledger    # print the parameter ledger
-make test      # 15 unit tests
+make test      # 25 unit tests
 ```
 
 The heavy path, only if you want to re-derive the features from raw MELD:
@@ -48,14 +48,18 @@ make train     # retrains all heads on CPU, under a minute
 
 | | size | needed for |
 |---|---|---|
-| `assets/clips/` — 19 MELD test clips | 18 MB | `make demo`, `make grounding` |
-| `artifacts/heads/` — 7 trained heads | 31 MB | everything |
-| `artifacts/features/` — dev+test embeddings | 165 MB | `make eval` |
-| `artifacts/figures/` — 8 generated figures | 0.5 MB | this README |
+| `artifacts/features/` — dev+test embeddings | 143.5 MB | `make eval` |
+| `artifacts/heads/` — 7 trained heads | 30.6 MB | everything |
+| `assets/clips/` — 19 MELD test clips | 19.2 MB | `make demo`, `make grounding` |
+| `artifacts/figures/` — 8 generated figures | 0.4 MB | this README |
+| **total** | **194 MB** | |
 
 Train-split features (~99 MB) are **not** shipped and are not needed: every
-number in this README reproduces from the dev/test caches alone. `make features`
-regenerates them if you want to re-run `make train`.
+number in this README reproduces from the dev/test caches alone — the class
+prior the majority baseline needs is stored inside each head checkpoint. This
+is verified, not assumed: moving the train caches aside and re-running
+`make eval` reproduces every figure identically. `make features` regenerates
+them if you want to re-run `make train`.
 
 ### A note on the data path
 
@@ -667,7 +671,8 @@ scripts/
   demo.py                live streaming demo + counterfactual demo
   extract_text.py        caches RoBERTa features incl. prefix features
   render_results.py      regenerates the Results section of this README
-tests/                   15 tests: behaviour contract, belief, causality, schema
+tests/                   25 tests: behaviour contract, belief, causality,
+                         schema, head-loading invariants
 ```
 
 ## Honest summary

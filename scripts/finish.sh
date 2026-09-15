@@ -14,6 +14,7 @@ echo "[finish] vision features present:"; ls -la artifacts/features/
 
 echo "[finish] 1/4 text features"
 $PY -u scripts/extract_text.py 2>&1 | grep -E "^\[text\]"
+$PY -u scripts/extract_solo_prefix.py 2>&1 | grep -E "^\[solo\]"
 
 echo "[finish] 2/4 training heads"
 $PY -u -m lelamp.train 2>&1 | grep -E "^\[(train|data)\]"

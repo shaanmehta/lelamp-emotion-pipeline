@@ -4,9 +4,6 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 
-# Fetched on first use (1.5 MB, see src/lelamp/data/meld.py)
-data/meld_csv/*.csv
-
 # Demo event logs
 artifacts/runs/*.jsonl
 

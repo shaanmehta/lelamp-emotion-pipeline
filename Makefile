@@ -38,9 +38,14 @@ test:
 	$(PY) -m pytest tests/ -q
 
 # --- heavy, optional: regenerates the cached features from the raw dataset ---
+# Order matters: text first (cheap, no network), then the solo prefixes it
+# extends, then the 10.9 GB video stream. Run sequentially -- two processes
+# using Metal at once wedges one of them on Apple Silicon (see README).
 features:
 	$(PY) scripts/extract_text.py
+	$(PY) scripts/extract_solo_prefix.py
 	$(PY) -m lelamp.data.stream_extract --train-cap 0 --vendor "$$(cat assets/DEMO_UIDS.txt)"
+	$(PY) -m lelamp.train
 
 train:
 	$(PY) -m lelamp.train
