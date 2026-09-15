@@ -57,10 +57,17 @@ def run_utterance(u, pipe, tower, text_enc, view, sink, speed, min_cov,
 
     seen: list[np.ndarray] = []
     committed = None
-    t_wall0 = time.perf_counter()
 
     last_reflex = -1e9
     for ev in stream:
+        if ev.kind == "end":
+            if committed is None:
+                emb = pipe.encode_text(text_enc, u.speaker, u.text, u.context, 1.0)
+                committed = _commit_state(u, pipe, emb, seen, ev.t_ms, 1.0, view,
+                                          sink, quiet, why="end of utterance")
+            # Voice budget starts here regardless of when the body committed.
+            _attach_speech(u, pipe, committed, ev.t_ms, view, sink, quiet)
+            continue
         if committed is not None:
             continue
         if ev.kind == "frame" and len(frames):
@@ -83,33 +90,45 @@ def run_utterance(u, pipe, tower, text_enc, view, sink, speed, min_cov,
                                        u.context, cov)
                 p, conf = pipe.probe(emb, np.stack(seen))
                 if conf >= commit_conf:
-                    committed = _commit(u, pipe, emb, seen, ev.t_ms, cov, view,
-                                        sink, t_wall0, quiet,
-                                        why=f"confidence {conf:.2f} >= {commit_conf}")
-
-        elif ev.kind == "end" and committed is None:
-            emb = pipe.encode_text(text_enc, u.speaker, u.text, u.context, 1.0)
-            committed = _commit(u, pipe, emb, seen, ev.t_ms, 1.0, view, sink,
-                                t_wall0, quiet, why="end of utterance")
+                    committed = _commit_state(
+                        u, pipe, emb, seen, ev.t_ms, cov, view, sink, quiet,
+                        why=f"confidence {conf:.2f} >= {commit_conf}")
     return committed
 
 
-def _commit(u, pipe, emb, seen, t_ms, cov, view, sink, t_wall0, quiet, why):
+def _commit_state(u, pipe, emb, seen, t_ms, cov, view, sink, quiet, why):
+    """Emit COMMIT_STATE so the body can move. No speech yet.
+
+    The two tiers have different deadlines and therefore different trigger
+    points. The body is allowed to commit as soon as the posterior is confident
+    enough, which can be halfway through the sentence. The voice is not: its
+    budget is defined as 800ms from the END of the utterance, and generating a
+    reply from the full transcript while the person is still saying it would
+    mean responding to words the lamp has not heard yet.
+    """
     st = pipe.deliberate(emb, np.stack(seen) if seen else np.zeros((0, 512), np.float32),
                          t_ms, u.uid, f"dia{u.dialogue_id}", cov,
                          dialogue_t_ms=pipe.dialogue_t_ms + t_ms,
                          visual_cue=_cue(seen))
-    sink(st)                                   # body gets the state immediately
+    sink(st)
     if not quiet:
         view.push(round_floats(st.to_dict()),
                   f"t={t_ms:6.0f}ms  COMMIT   {st.affect.emotion} "
                   f"{st.affect.confidence:.2f} -> {st.behavior.intent}  ({why})")
-    pipe.speak(st, u.context, u.speaker, u.text)   # ...then we talk
+    return st
+
+
+def _attach_speech(u, pipe, st, t_end_ms, view, sink, quiet):
+    """Generate the spoken reply at the endpoint, from the complete utterance."""
+    pipe.speak(st, u.context, u.speaker, u.text)
+    st.latency["speech_t_ms"] = round(t_end_ms, 1)
     sink(st)
     if not quiet:
+        gap = t_end_ms - st.t_emit_ms
         view.push(round_floats(st.to_dict()),
-                  f"           speech   {st.latency.get('responder','-')} "
-                  f"ttft={st.latency.get('ttft_ms', 0):.0f}ms")
+                  f"t={t_end_ms:6.0f}ms  speech   {st.latency.get('responder','-')} "
+                  f"ttft={st.latency.get('ttft_ms', 0):.0f}ms "
+                  f"(body moved {gap:.0f}ms earlier)")
     return st
 
 
