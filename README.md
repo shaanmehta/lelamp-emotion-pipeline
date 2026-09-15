@@ -26,9 +26,14 @@ make setup     # venv + deps, ~2 min
 make demo      # stream one MELD dialogue through the lamp, live
 ```
 
-`make demo` runs entirely offline against vendored clips and cached features —
-no 10.9 GB download required. It replays a real MELD test dialogue at wall-clock
-rate and renders the lamp in your terminal as the state changes.
+`make demo` needs **no MELD download** — it runs against vendored clips and
+cached features already in this repo. On a fresh machine it does pull the three
+pretrained checkpoints from Hugging Face on first run (~2.1 GB: CLIP 0.6, RoBERTa
+0.5, Qwen-1.5B-4bit 1.0); after that it is fully offline. Inference is local
+either way — there are no API calls anywhere in the pipeline.
+
+It replays a real MELD test dialogue at wall-clock rate and renders the lamp in
+your terminal as the state changes (~25 s at `--speed 10`, ~4 min at 1x).
 
 ```bash
 make grounding # same words, different video -> different state and behaviour
@@ -40,8 +45,9 @@ make test      # 25 unit tests
 The heavy path, only if you want to re-derive the features from raw MELD:
 
 ```bash
-make features  # streams MELD.Raw.tar.gz (10.9 GB) without ever storing it
-make train     # retrains all heads on CPU, under a minute
+make features  # streams MELD.Raw.tar.gz (10.9 GB) without ever storing it,
+               # then retrains every head. ~25 min end to end.
+make train     # just the heads, from cached features. CPU, under a minute.
 ```
 
 ### What ships in this repo
@@ -52,7 +58,8 @@ make train     # retrains all heads on CPU, under a minute
 | `artifacts/heads/` — 7 trained heads | 30.6 MB | everything |
 | `assets/clips/` — 19 MELD test clips | 19.2 MB | `make demo`, `make grounding` |
 | `artifacts/figures/` — 8 generated figures | 0.4 MB | this README |
-| **total** | **194 MB** | |
+| `data/meld_csv/` — MELD transcripts + labels | 1.5 MB | everything |
+| **total** | **196 MB** | |
 
 Train-split features (~99 MB) are **not** shipped and are not needed: every
 number in this README reproduces from the dev/test caches alone — the class
@@ -359,18 +366,25 @@ Two things this deliberately does not hide:
  ══ TIER 2 · DELIBERATIVE ── at commit ═════════════════════════════
                │
    ┌───────────┴───────────┐     ┌────────────────────────────┐
-   │ RoBERTa-base          │     │ frame buffer → temporal    │
-   │ [3 prior turns][utt]  │     │ pool: mean‖max‖std‖Δ       │
-   │ → 768-d    (124.6 M)  │     │ → 2048-d  (reuses tier-1   │
-   └───────────┬───────────┘     │ encoder, 0 new params)     │
-               │                 └──────────────┬─────────────┘
-               └──────────┬───────────────────── ┘
+   │ RoBERTa-base (124.6 M)│     │ frame buffer → temporal    │
+   │ TWO encodings, kept   │     │ pool: mean‖max‖std‖Δ       │
+   │ separate on purpose:  │     │ → 2048-d  (reuses tier-1   │
+   │  [utt]        → 768-d │     │ encoder, 0 new params)     │
+   │  [3 prior][utt]→768-d │     └──────────────┬─────────────┘
+   └───────────┬───────────┘                    │
+               │  mean-pooling these together   │
+               │  costs 12 F1 points — see      │
+               │  Results                       │
+               └──────────┬─────────────────────┘
                           ▼
             ┌────────────────────────┐     ┌──────────────────────────┐
-            │ FusionHead + temp.     │     │ text-only head  (0.40 M) │
-            │ scaling       (1.45 M) │     │ vision-only head(1.06 M) │
-            └───────────┬────────────┘     │  → disagreement signal   │
-                        │                  └──────────────────────────┘
+            │ GatedFusionHead        │     │ text-only head  (0.79 M) │
+            │  logits_text           │     │ vision-only head(1.06 M) │
+            │  + g · logits_vision   │     │  → disagreement signal   │
+            │  + temp. scaling       │     └──────────────────────────┘
+            │              (1.56 M)  │
+            │  g→0 recovers text-only│
+            └───────────┬────────────┘
                         ▼
             ┌────────────────────────┐
             │ BeliefTracker          │  EMA on the simplex + margin
@@ -398,7 +412,7 @@ Two things this deliberately does not hide:
 |---|---|---|---|
 | Vision | **CLIP ViT-B/32 vision tower**, frozen | AffectNet-style face-expression CNN + face detector | The face route needs a detector, and MELD shots are wide and multi-speaker — *which* face is talking is unsolved. CLIP encodes the whole frame: face if it is large, plus posture, lighting, shot type. Frozen ⇒ zero training cost. **Cost: we never disambiguate the speaker in frame.** Listed under Limitations. |
 | Text | **RoBERTa-base**, frozen, mean-pooled | DeBERTa-v3-base (+~2 pts); or reuse the LLM's hidden states | RoBERTa is ~25 ms on MPS and simple. Reusing the LLM would save 125 M but the classifier must run *before* the LLM, and frozen-decoder embeddings underperform encoder mean-pooling on sentence classification. We have ~70% headroom, so DeBERTa is a one-line swap if needed. |
-| Fusion | **Late fusion, concat → 2-layer MLP on frozen features** | Cross-attention fusion transformer; end-to-end fine-tuning | Trains in seconds on CPU, so every ablation is cheap enough to actually run and report. Fine-tuning a big backbone here would be the anti-pattern. |
+| Fusion | **Gated late fusion on frozen features**: `logits_text + g·logits_vision` | Plain concatenation → MLP; cross-attention fusion; end-to-end fine-tuning | Concatenation is the obvious choice and I built it first — it scores *below* its own text-only baseline (0.604 vs 0.629), because 2048 noisy vision dims next to 1536 informative text dims is an invitation to overfit the noisy half. The gated form can drive `g→0` and recover the text-only model exactly, so the optimiser has an escape hatch wherever vision does not help. Both are in the ablation table. Everything trains in seconds on CPU, which is what made it affordable to report seven configurations instead of the one that won. |
 | Responder | **Qwen2.5-1.5B-Instruct, 4-bit, MLX** | Qwen2.5-3B (the budget allows it) | M1, not M1 Pro. 3B roughly doubles prefill and the verbal budget is already tight. The ledger shows we *could* afford 3B — that is a better argument than "we used the biggest thing that fit". |
 | Tier-1 output | **valence + arousal + salience** | 7-class emotion from one frame | Vision-only 7-way on MELD is barely above majority. Committing to a category at 200 ms manufactures exactly the flicker the belief tracker exists to remove. Arousal is more visually legible than category, and arousal is what reflexive motion consumes (amplitude, speed). |
 
